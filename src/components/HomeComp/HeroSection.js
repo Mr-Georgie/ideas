@@ -9,18 +9,16 @@ export default function HeroSection() {
 
       <div className="text-center">
         <p className="font-sans text-xl lg:text-3xl font-semibold text-[#CCD6F6]">
-          Write, publish and compare analytics for your articles on{" "}
-          <span className="text-custom-indigo">Hashnode</span> and{" "}
-          <span className="text-custom-indigo">DEV</span>
+          Share your crazy ideas and MVPs with like minded people
         </p>
       </div>
 
       <div className="my-8 font-mono">
         <a
-          href="#find-out-how"
+          href="#about"
           className="outline-btn inline-block text-xl px-4 py-2 leading-none "
         >
-          Find out how
+          How?
         </a>
       </div>
     </div>

@@ -8,14 +8,14 @@ import { Link } from "react-router-dom";
 
 export default function CoreFeatures() {
   return (
-    <div id="find-out-how" className="flex flex-col items-center my-16">
-      {/* ---- Core feature header ---- */}
+    <div id="about" className="flex flex-col items-center my-16">
+      {/* ---- About header ---- */}
       <div className="text-center mb-10 mt-16">
-        <span className="text-4xl text-white font-extrabold">Core Feature</span>
+        <span className="text-4xl text-white font-extrabold">About Ideas</span>
       </div>
-      {/* ---- Core feature header ends---- */}
+      {/* ---- About header ends---- */}
 
-      {/* ---- Core feature content ---- */}
+      {/* ---- About content ---- */}
       <div className="flex gap-4 flex-col md:flex-row">
         {/* flex item one */}
         <div className="p-10 border rounded text-white border-white">
@@ -27,8 +27,8 @@ export default function CoreFeatures() {
           </div>
           <div className="">
             <span className="font-mono">
-              Write an article using a markdown editor that is similar to that
-              on Hashnode and DEV
+              Write about your idea in a blog-like editor. Add links, codes and
+              images
             </span>
           </div>
         </div>
@@ -36,14 +36,14 @@ export default function CoreFeatures() {
         {/* flex item two */}
         <div className="p-10 border rounded text-white border-custom-green">
           <div className="text-center">
-            <span className="font-sans text-2xl font-bold">Publish</span>
+            <span className="font-sans text-2xl font-bold">Engage</span>
           </div>
           <div className="icon">
             <img src={uploadImg} alt="" />
           </div>
           <div className="text">
             <span className="font-mono">
-              Simultaneously publish the article across the two platforms
+              Engage with other peoples posts by upvoting and commenting
             </span>
           </div>
         </div>
@@ -51,21 +51,21 @@ export default function CoreFeatures() {
         {/* flex item three */}
         <div className="p-10 border rounded text-white border-custom-indigo">
           <div className="text-center">
-            <span className="ffont-sans text-2xl font-bold">Compare</span>
+            <span className="ffont-sans text-2xl font-bold">Collaborate</span>
           </div>
           <div className="icon">
             <img src={compareImg} alt="" />
           </div>
           <div className="text">
             <span className="font-mono">
-              View and compare the article&#39;s engagement on each platform and
-              learn
+              Ultimately make friends with people you can build more crazy ideas
+              with
             </span>
           </div>
         </div>
       </div>
 
-      {/* core features button */}
+      {/* About button */}
       <div className="my-8 font-mono">
         <Link
           to="onboard"
@@ -75,7 +75,7 @@ export default function CoreFeatures() {
         </Link>
       </div>
 
-      {/* ---- Core feature content end ---- */}
+      {/* ---- About content end ---- */}
     </div>
   );
 }

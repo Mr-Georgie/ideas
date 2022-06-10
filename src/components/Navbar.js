@@ -125,10 +125,10 @@ export default function Navbar() {
         >
           <div className="text-sm lg:flex-grow">
             <a
-              href="#find-out-how"
+              href="#about"
               className="block mt-4 lg:inline-block lg:mt-0 text-custom-indigo hover:text-white mr-4"
             >
-              Core Features
+              About
             </a>
             <a
               href="#responsive-header"

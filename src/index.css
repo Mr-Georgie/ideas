@@ -2,13 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer base {
-
   html {
     scroll-behavior: smooth;
   }
-
 }
 
 @layer components {
@@ -22,10 +19,16 @@
     transition ease-out duration-500;
   }
 
+  .solid-indigo-btn {
+    @apply border rounded text-custom-white border-custom-indigo bg-custom-indigo
+    hover:border-transparent hover:bg-[#6b79f2d2] mt-4 lg:mt-0
+    transition ease-out duration-500;
+  }
+
   .outline-btn {
     @apply border rounded text-white border-white 
     hover:border-transparent hover:text-custom-indigo 
     hover:bg-white mt-4 lg:mt-0
-    transition ease-out duration-500
+    transition ease-out duration-500;
   }
 }
