@@ -7,7 +7,8 @@ import Footer from "./components/Footer";
 import { AnimationContextProvider } from "./components/Utility/AnimationContext";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Onboard from "./components/Onboard";
-import Newsfeed from "./components/Newsfeed";
+// import Newsfeed from "./components/Newsfeed";
+import Main from "./components/Main";
 
 function App() {
   const { pathname } = useLocation();
@@ -27,7 +28,7 @@ function App() {
         <Routes>
           <Route index path="/" element={<Home />}></Route>
           <Route path="onboard" element={<Onboard />}></Route>
-          <Route path="newsfeed" element={<Newsfeed />}></Route>
+          <Route path="newsfeed" element={<Main />}></Route>
         </Routes>
 
         {/* Main app component ends */}
