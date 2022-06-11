@@ -6,11 +6,15 @@
   html {
     scroll-behavior: smooth;
   }
+
+  body {
+    @apply bg-custom-dark-blue h-screen;
+  }
 }
 
 @layer components {
   .app {
-    @apply bg-custom-dark-blue h-full;
+    @apply bg-custom-dark-blue h-screen;
   }
 
   .solid-white-btn {

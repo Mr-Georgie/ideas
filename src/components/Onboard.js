@@ -27,7 +27,7 @@ export default function Onboard() {
           {navigation[navIndex]}
         </span>
       </div>
-      <p class="text-gray-600 text-xs italic">
+      <p className="text-gray-600 text-xs italic">
         {/* Conditionally render the content for Step 1, 2, & 3 */}
         {navigation[navIndex] === "Step 1" &&
           "First, let's create an account for you"}
@@ -42,28 +42,28 @@ export default function Onboard() {
         <span
           className={`h-3 rounded ${
             navigation[navIndex] === "Step 1"
-              ? "w-64 bg-custom-indigo"
-              : "w-32 bg-[#dcdbf571]"
+              ? " w-1/2 bg-custom-indigo"
+              : "w-1/4 bg-[#dcdbf571]"
           }`}
         ></span>
         {/*  */}
         <span
           className={`h-3 rounded ${
             navigation[navIndex] === "Step 2"
-              ? "w-64 bg-custom-indigo"
-              : "w-32 bg-[#dcdbf571]"
+              ? "w-1/2 bg-custom-indigo"
+              : "w-1/4 bg-[#dcdbf571]"
           }`}
         ></span>
         {/*  */}
         <span
           className={`h-3 rounded ${
             navigation[navIndex] === "Step 3"
-              ? "w-64 bg-custom-indigo"
-              : "w-32 bg-[#dcdbf571]"
+              ? "w-1/2 bg-custom-indigo"
+              : "w-1/4 bg-[#dcdbf571]"
           }`}
         ></span>
       </div>
-      <div className="mb-16">
+      <div className="mb-6">
         <span className="text-custom-white text-3xl font-bold">
           {navigation[navIndex] === "Step 1" && "Create an account"}
           {navigation[navIndex] === "Step 2" && "Complete your profile"}
@@ -75,26 +75,31 @@ export default function Onboard() {
       {navigation[navIndex] === "Step 2" && <Step2 />}
       {navigation[navIndex] === "Step 3" && <Step3 />}
 
-      <div className="flex justify-between gap-10 mt-4 mb-10 font-mono">
-        <div>
-          <button
-            type="button"
-            onClick={() => navHandler("previous", navIndex)}
-            className="solid-white-btn inline-block text-lg font-bold px-16 py-4 leading-none"
-          >
-            Back
-          </button>
-        </div>
+      <div className="flex justify-between gap-10 mt-4 pb-20 font-mono">
+        {navigation[navIndex] !== "Step 1" &&
+          navigation[navIndex] !== "Step 2" && (
+            <div>
+              <button
+                type="button"
+                onClick={() => navHandler("previous", navIndex)}
+                className="solid-white-btn inline-block text-lg font-bold px-16 py-4 leading-none"
+              >
+                Back
+              </button>
+            </div>
+          )}
 
-        <div>
-          <button
-            type="button"
-            onClick={() => navHandler("next", navIndex)}
-            className="solid-indigo-btn inline-block text-lg font-bold px-16 py-4 leading-none"
-          >
-            Next
-          </button>
-        </div>
+        {navigation[navIndex] !== "Step 3" && (
+          <div>
+            <button
+              type="button"
+              onClick={() => navHandler("next", navIndex)}
+              className="solid-indigo-btn inline-block text-lg font-bold px-16 py-4 leading-none"
+            >
+              Next
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

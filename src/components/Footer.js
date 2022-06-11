@@ -12,7 +12,7 @@ export default function Footer() {
 
       {/* Attribute one */}
       <div className="py-10 font-mono bg-custom-indigo">
-        <div className="flex justify-center text-center">
+        <div className="flex justify-center text-center font-bold">
           Powered by Linode X Hashnode Hackathon
         </div>
       </div>
