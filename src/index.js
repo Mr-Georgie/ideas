@@ -4,13 +4,17 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
+import { AnimationContextProvider } from "./components/Utility/AnimationContext";
+
 import { BrowserRouter as Router } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Router>
-      <App />
+      <AnimationContextProvider>
+        <App />
+      </AnimationContextProvider>
     </Router>
   </React.StrictMode>
 );

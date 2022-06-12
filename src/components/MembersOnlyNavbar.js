@@ -5,7 +5,7 @@ import { AnimationContext } from "./Utility/AnimationContext";
 import useWindowSize from "./Utility/useWindowSize";
 import { useLocation, Link } from "react-router-dom";
 
-export default function Navbar() {
+export default function MembersOnlyNavbar() {
   const { isLoading, showNavbar, setShowNavbar } = useContext(AnimationContext);
 
   // get the browser pathname to decide navbar content
@@ -131,28 +131,26 @@ export default function Navbar() {
               href="#about"
               className="block mt-4 lg:inline-block lg:mt-0 text-custom-indigo hover:text-white mr-4"
             >
-              About
+              Newsfeed
             </a>
             <a
               href="#responsive-header"
               className="block mt-4 lg:inline-block lg:mt-0 text-custom-indigo hover:text-white mr-4"
             >
-              Github Repo
+              Bookmarks
             </a>
-            <Link
-              to="/onboard"
-              className="solid-white-btn inline-block text-sm font-semibold px-4 py-2 leading-none"
+            <a
+              href="#responsive-header"
+              className="block mt-4 lg:inline-block lg:mt-0 text-custom-indigo hover:text-white mr-4"
             >
-              Get started
-            </Link>
-          </div>
-          <div>
-            <Link
-              to="/sign-in"
-              className="outline-btn inline-block text-sm px-4 py-2 leading-none"
+              Drafts
+            </a>
+            <a
+              href="#responsive-header"
+              className="block mt-4 lg:inline-block lg:mt-0 text-custom-indigo hover:text-white mr-4"
             >
-              Sign in
-            </Link>
+              Accounts
+            </a>
           </div>
         </Transition>
       </nav>
