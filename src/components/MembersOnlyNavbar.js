@@ -3,13 +3,10 @@ import React, { useState, useContext, useEffect } from "react";
 import { Transition } from "@headlessui/react";
 import { AnimationContext } from "./Utility/AnimationContext";
 import useWindowSize from "./Utility/useWindowSize";
-import { useLocation, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function MembersOnlyNavbar() {
-  const { isLoading, showNavbar, setShowNavbar } = useContext(AnimationContext);
-
-  // get the browser pathname to decide navbar content
-  const { pathname } = useLocation();
+  const { showNavbar, setShowNavbar } = useContext(AnimationContext);
 
   const width = useWindowSize();
 
@@ -28,7 +25,7 @@ export default function MembersOnlyNavbar() {
 
   return (
     <Transition
-      show={!isLoading}
+      show={true}
       enter="transition ease-in-out duration-300 transform"
       enterFrom="-translate-x-full"
       enterTo="translate-x-0"
@@ -37,11 +34,7 @@ export default function MembersOnlyNavbar() {
       leaveTo="-translate-x-full"
     >
       {/* ...Navbar... */}
-      <nav
-        className={`flex items-center flex-wrap p-6 font-mono ${
-          pathname === "/onboard" ? "justify-center" : "justify-between"
-        }`}
-      >
+      <nav className="flex items-center flex-wrap p-6 font-mono justify-between">
         <div className="flex items-center flex-shrink-0 text-white mr-6">
           <div className="bg-custom-indigo p-3 rounded mr-2">
             <svg
@@ -61,20 +54,11 @@ export default function MembersOnlyNavbar() {
               />
             </svg>
           </div>
-          <Link
-            to="/"
-            className={`font-semibold tracking-tight ${
-              pathname === "/onboard" ? "text-3xl" : "text-xl"
-            }`}
-          >
+          <Link to="/" className="font-semibold tracking-tight">
             Ideas
           </Link>
         </div>
-        <div
-          className={`${
-            pathname === "/onboard" ? "hidden" : "block lg:hidden"
-          }`}
-        >
+        <div className="block lg:hidden">
           <button
             type="button"
             onClick={navbarToggler}
@@ -113,11 +97,7 @@ export default function MembersOnlyNavbar() {
         </div>
 
         <Transition
-          className={`w-full flex-grow ${
-            pathname === "/onboard"
-              ? "hidden"
-              : "lg:flex lg:items-center lg:w-auto"
-          }`}
+          className="w-full flex-grow lg:flex lg:items-center lg:w-auto"
           show={showNavbar}
           enter="transform transition duration-500 ease-custom"
           enterFrom="-translate-y-1/2 scale-y-0 opacity-0"
