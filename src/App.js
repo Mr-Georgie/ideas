@@ -5,12 +5,16 @@ import Welcome from "./pages/Welcome";
 import Footer from "./components/Footer";
 
 import { AnimationContext } from "./context/AnimationContext";
-import { Routes, Route, useLocation } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  // useLocation
+} from "react-router-dom";
 import Onboard from "./pages/Onboard";
 import Home from "./pages/Home";
 
 function App() {
-  const { pathname } = useLocation();
+  // const { pathname } = useLocation();
 
   const { isLoading } = useContext(AnimationContext);
 
