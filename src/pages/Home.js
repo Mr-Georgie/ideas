@@ -6,7 +6,7 @@ import { AnimationContext } from "../context/AnimationContext";
 import { Transition } from "@headlessui/react";
 import useWindowSize from "../utils/useWindowSize";
 import Newsfeed from "./Newsfeed";
-import Conversations from "./Conversations";
+import Bookmarks from "./Bookmarks";
 import Account from "./Account";
 
 import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
@@ -85,7 +85,7 @@ export default function Home() {
           <div className="w-full xl:w-4/6">
             <Routes>
               <Route path="newsfeed" element={<Newsfeed />}></Route>
-              <Route path="conversations" element={<Conversations />}></Route>
+              <Route path="bookmarks" element={<Bookmarks />}></Route>
               <Route path="Account" element={<Account />}></Route>
             </Routes>
           </div>
