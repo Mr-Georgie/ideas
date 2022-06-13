@@ -1,14 +1,13 @@
 import React, { useContext } from "react";
 import LoadingScreen from "./components/LoadingScreen";
 import Navbar from "./components/Navbar";
-import Home from "./components/Home";
+import Welcome from "./pages/Welcome";
 import Footer from "./components/Footer";
 
-import { AnimationContext } from "./components/Utility/AnimationContext";
+import { AnimationContext } from "./context/AnimationContext";
 import { Routes, Route, useLocation } from "react-router-dom";
-import Onboard from "./components/Onboard";
-// import Newsfeed from "./components/Newsfeed";
-import Main from "./components/Main";
+import Onboard from "./pages/Onboard";
+import Home from "./pages/Home";
 
 function App() {
   const { pathname } = useLocation();
@@ -23,18 +22,30 @@ function App() {
 
       {!isLoading && (
         <>
-          {/* Don't show Navbar on the newsfeed */}
-          {pathname !== "/newsfeed" && <Navbar />}
           {/* Main app component */}
           <Routes>
-            <Route index path="/" element={<Home />}></Route>
-            <Route path="onboard" element={<Onboard />}></Route>
-            <Route path="newsfeed" element={<Main />}></Route>
+            <Route
+              index
+              path="/"
+              element={
+                <>
+                  <Navbar />
+                  <Welcome />
+                  <Footer />
+                </>
+              }
+            ></Route>
+            <Route
+              path="onboard"
+              element={
+                <>
+                  <Navbar />
+                  <Onboard />
+                </>
+              }
+            ></Route>
+            <Route path="home/*" element={<Home />}></Route>
           </Routes>
-          {/* Main app component ends */
-          /* Don't show Footer on the
-          onboarding pages */}
-          {pathname !== "/onboard" && pathname !== "/newsfeed" && <Footer />}
         </>
       )}
     </div>

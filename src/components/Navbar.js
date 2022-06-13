@@ -1,8 +1,8 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 
 import { Transition } from "@headlessui/react";
-import { AnimationContext } from "./Utility/AnimationContext";
-import useWindowSize from "./Utility/useWindowSize";
+import { AnimationContext } from "../context/AnimationContext";
+import useWindowSize from "../utils/useWindowSize";
 import { useLocation, Link } from "react-router-dom";
 
 export default function Navbar() {

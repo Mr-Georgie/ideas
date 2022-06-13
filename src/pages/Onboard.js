@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Step1 from "./OnboardingComp/Step1";
-import Step2 from "./OnboardingComp/Step2";
-import Step3 from "./OnboardingComp/Step3";
+import Step1 from "../components/OnboardingComp/Step1";
+import Step2 from "../components/OnboardingComp/Step2";
+import Step3 from "../components/OnboardingComp/Step3";
 
 export default function Onboard() {
   //

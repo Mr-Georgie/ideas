@@ -1,15 +1,27 @@
-import React, { useContext } from "react";
-import Leftsidebar from "./Leftsidebar";
-import Newsfeed from "./Newsfeed";
-import RightCallToAction from "./RightCallToAction";
-import MembersOnlyNavbar from "./MembersOnlyNavbar";
-import { AnimationContext } from "./Utility/AnimationContext";
+import React, { useContext, useEffect } from "react";
+import Leftsidebar from "../components/Leftsidebar";
+import RightCallToAction from "../components/RightCallToAction";
+import MembersOnlyNavbar from "../components/MembersOnlyNavbar";
+import { AnimationContext } from "../context/AnimationContext";
 import { Transition } from "@headlessui/react";
-import useWindowSize from "./Utility/useWindowSize";
+import useWindowSize from "../utils/useWindowSize";
+import Newsfeed from "./Newsfeed";
+import Conversations from "./Conversations";
+import Account from "./Account";
 
-export default function Main() {
+import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
+
+export default function Home() {
   const { showNavbar, navbarToggler } = useContext(AnimationContext);
   const width = useWindowSize();
+  let location = useLocation();
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    if (location.pathname === "/home") {
+      navigate("/home/newsfeed");
+    }
+  }, [location.pathname]);
 
   return (
     <div className="flex flex-wrap static">
@@ -58,8 +70,11 @@ export default function Main() {
           <Leftsidebar />
         </div>
       </Transition>
-      {/* An empty div to take the width of the leftnavbar on full screen */}
-      <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6"></div>
+
+      <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6">
+        {/* An empty div to take the width of the leftnavbar on full screen */}
+      </div>
+
       {/* main content */}
       <div className="w-full md:w-2/3 lg:w-3/4 xl:w-5/6">
         <span className="md:hidden">
@@ -68,7 +83,11 @@ export default function Main() {
 
         <div className="flex flex-col-reverse xl:flex-wrap xl:flex-row p-8">
           <div className="w-full xl:w-4/6">
-            <Newsfeed />
+            <Routes>
+              <Route path="newsfeed" element={<Newsfeed />}></Route>
+              <Route path="conversations" element={<Conversations />}></Route>
+              <Route path="Account" element={<Account />}></Route>
+            </Routes>
           </div>
           <div className="w-full xl:hidden">
             <RightCallToAction />

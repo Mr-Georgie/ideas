@@ -4,7 +4,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
-import { AnimationContextProvider } from "./components/Utility/AnimationContext";
+import { AnimationContextProvider } from "./context/AnimationContext";
 
 import { BrowserRouter as Router } from "react-router-dom";
 

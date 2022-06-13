@@ -1,7 +1,7 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from "react";
 
-import { Transition } from '@headlessui/react';
-import { AnimationContext } from './Utility/AnimationContext';
+import { Transition } from "@headlessui/react";
+import { AnimationContext } from "../context/AnimationContext";
 
 // import navLogo from '../images/Logo-100px.png'
 
@@ -25,10 +25,10 @@ export default function LoadingScreen() {
 
       // if the loading dots are 4 on re-render, set loading dots to 1
       if (loadingDots.length === 2) {
-        setLoadingDots('.');
+        setLoadingDots(".");
 
         setAnimationCount((prevState) => prevState + 1);
-        console.log('animationCount : ', animationCount);
+        console.log("animationCount : ", animationCount);
       }
     }, 500);
 

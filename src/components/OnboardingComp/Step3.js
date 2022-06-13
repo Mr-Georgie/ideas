@@ -35,7 +35,7 @@ export default function Step3() {
       </div>
       {/*  */}
       <Link
-        to="/newsfeed"
+        to="/home/newsfeed"
         className="flex bg-gray-700 rounded-lg 
                   border border-gray-600 px-10
                   py-4 cursor-pointer hover:ring-custom-indigo hover:border-custom-indigo"
