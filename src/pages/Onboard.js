@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Step1 from "../components/OnboardingComp/Step1";
 import Step2 from "../components/OnboardingComp/Step2";
 import Step3 from "../components/OnboardingComp/Step3";

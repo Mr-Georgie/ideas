@@ -21,7 +21,7 @@ export default function Home() {
     if (location.pathname === "/home") {
       navigate("/home/newsfeed");
     }
-  }, [location.pathname]);
+  }, [location.pathname]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="flex flex-wrap static">
