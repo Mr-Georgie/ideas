@@ -6,7 +6,8 @@ import useWindowSize from "./Utility/useWindowSize";
 import { useLocation, Link } from "react-router-dom";
 
 export default function Navbar() {
-  const { isLoading, showNavbar, setShowNavbar } = useContext(AnimationContext);
+  const { isLoading, showNavbar, setShowNavbar, navbarToggler } =
+    useContext(AnimationContext);
 
   // get the browser pathname to decide navbar content
   const { pathname } = useLocation();
@@ -20,11 +21,6 @@ export default function Navbar() {
       setShowNavbar(false);
     }
   }, [width]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  // function to toggle navbar
-  const navbarToggler = () => {
-    setShowNavbar((prevState) => !prevState);
-  };
 
   return (
     <Transition

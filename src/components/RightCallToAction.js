@@ -20,7 +20,7 @@ export default function RightCallToAction() {
   return (
     <>
       <div
-        className={`bg-custom-dark-blue px-2 rounded-md border mb-4 cursor-pointer ${
+        className={`bg-gray-800 px-2 rounded-md border mb-4 cursor-pointer ${
           inputOnFocus ? "border-custom-indigo" : "border-gray-700"
         }`}
         onClick={handleClick}
@@ -52,7 +52,7 @@ export default function RightCallToAction() {
           />
         </div>
       </div>
-      <div className="bg-custom-dark-blue p-8 rounded-md border border-gray-700">
+      <div className="bg-gray-800 p-8 rounded-md border border-gray-700">
         <div className="text-white">
           <div className="font-extrabold text-3xl">Hello Daniel</div>
           <span className="font-mono text-custom-white">

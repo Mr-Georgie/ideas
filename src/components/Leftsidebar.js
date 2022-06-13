@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 
 export default function Leftsidebar() {
   return (
-    <div className="flex flex-col">
-      <Link to="/" className="font-semibold tracking-tight text-xl">
+    <div className="flex flex-col bg-slate-800">
+      <Link to="/" className="font-semibold font-mono tracking-tight text-xl">
         <div className="flex items-center flex-shrink-0 text-white p-4">
           <div className="bg-custom-indigo p-3 rounded mr-2">
             <svg
@@ -33,8 +33,8 @@ export default function Leftsidebar() {
         <div
           className="flex items-center 
                     flex-shrink-0 text-white 
-                    font-bold font-mono p-6 
-                    active:bg-custom-indigo hover:bg-gray-800 focus:bg-custom-indigo"
+                    font-bold font-mono p-6 hover:bg-custom-indigo
+                    active:bg-custom-dark-blue focus:bg-custom-dark-blue"
         >
           <span>
             <svg
@@ -58,7 +58,7 @@ export default function Leftsidebar() {
           className="flex items-center 
                     flex-shrink-0 text-white 
                     font-bold font-mono p-6 
-                    active:bg-custom-indigo hover:bg-gray-800 focus:bg-custom-indigo"
+                    active:bg-custom-dark-blue hover:bg-custom-indigo focus:bg-custom-dark-blue"
         >
           <span>
             <svg
@@ -82,7 +82,7 @@ export default function Leftsidebar() {
           className="flex items-center 
                     flex-shrink-0 text-white 
                     font-bold font-mono p-6 
-                    active:bg-custom-indigo hover:bg-gray-800 focus:bg-custom-indigo"
+                    active:bg-custom-dark-blue hover:bg-custom-indigo focus:bg-custom-dark-blue"
         >
           <span>
             <svg
@@ -106,7 +106,7 @@ export default function Leftsidebar() {
           className="flex items-center 
                     flex-shrink-0 text-white 
                     font-bold font-mono p-6 
-                    active:bg-custom-indigo hover:bg-gray-800 focus:bg-custom-indigo"
+                    active:bg-custom-dark-blue hover:bg-custom-indigo focus:bg-custom-dark-blue"
         >
           <span>
             <svg
@@ -131,6 +131,8 @@ export default function Leftsidebar() {
           </span>
           <span className="px-2">Account</span>
         </div>
+
+        {/*  */}
 
         <div className="mt-16 px-6">
           <div className="flex flex-wrap text-xs">

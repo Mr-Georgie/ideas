@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 
 import { Transition } from "@headlessui/react";
 import { AnimationContext } from "./Utility/AnimationContext";
@@ -6,7 +6,8 @@ import useWindowSize from "./Utility/useWindowSize";
 import { Link } from "react-router-dom";
 
 export default function MembersOnlyNavbar() {
-  const { showNavbar, setShowNavbar } = useContext(AnimationContext);
+  const { showNavbar, setShowNavbar, navbarToggler } =
+    useContext(AnimationContext);
 
   const width = useWindowSize();
 
@@ -18,11 +19,6 @@ export default function MembersOnlyNavbar() {
     }
   }, [width]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // function to toggle navbar
-  const navbarToggler = () => {
-    setShowNavbar((prevState) => !prevState);
-  };
-
   return (
     <Transition
       show={true}
@@ -33,8 +29,9 @@ export default function MembersOnlyNavbar() {
       leaveFrom="translate-x-0"
       leaveTo="-translate-x-full"
     >
-      {/* ...Navbar... */}
-      <nav className="flex items-center flex-wrap p-6 font-mono justify-between">
+      {/* Navbar with logo and toggle menu button */}
+      <nav className="flex items-center justify-between flex-wrap p-6 font-mono">
+        {/* logo */}
         <div className="flex items-center flex-shrink-0 text-white mr-6">
           <div className="bg-custom-indigo p-3 rounded mr-2">
             <svg
@@ -58,81 +55,30 @@ export default function MembersOnlyNavbar() {
             Ideas
           </Link>
         </div>
+        {/* toggle menu button */}
         <div className="block lg:hidden">
-          <button
-            type="button"
-            onClick={navbarToggler}
-            className="flex items-center px-3
-                            py-2 border rounded text-custom-indigo
-                            border-custom-indigo hover:text-white
-                            hover:border-white"
-          >
-            <Transition show={!showNavbar}>
-              <svg
-                className="fill-current h-3 w-3"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <title>Menu</title>
-                <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
-              </svg>
-            </Transition>
-            <Transition show={showNavbar}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-3 w-3"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </Transition>
-          </button>
+          {!showNavbar && (
+            <button
+              type="button"
+              onClick={navbarToggler}
+              className="flex items-center px-3
+                              py-2 border rounded text-custom-indigo
+                              border-custom-indigo hover:text-white
+                              hover:border-white"
+            >
+              <Transition show={!showNavbar}>
+                <svg
+                  className="fill-current h-3 w-3"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <title>Menu</title>
+                  <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+                </svg>
+              </Transition>
+            </button>
+          )}
         </div>
-
-        <Transition
-          className="w-full flex-grow lg:flex lg:items-center lg:w-auto"
-          show={showNavbar}
-          enter="transform transition duration-500 ease-custom"
-          enterFrom="-translate-y-1/2 scale-y-0 opacity-0"
-          enterTo="translate-y-0 scale-y-100 opacity-100"
-          leave="transform transition duration-300 ease-custom"
-          leaveFrom="translate-y-0 scale-y-100 opacity-100"
-          leaveTo="-translate-y-1/2 scale-y-0 opacity-0"
-        >
-          <div className="text-sm lg:flex-grow">
-            <a
-              href="#about"
-              className="block mt-4 lg:inline-block lg:mt-0 text-custom-indigo hover:text-white mr-4"
-            >
-              Newsfeed
-            </a>
-            <a
-              href="#responsive-header"
-              className="block mt-4 lg:inline-block lg:mt-0 text-custom-indigo hover:text-white mr-4"
-            >
-              Bookmarks
-            </a>
-            <a
-              href="#responsive-header"
-              className="block mt-4 lg:inline-block lg:mt-0 text-custom-indigo hover:text-white mr-4"
-            >
-              Drafts
-            </a>
-            <a
-              href="#responsive-header"
-              className="block mt-4 lg:inline-block lg:mt-0 text-custom-indigo hover:text-white mr-4"
-            >
-              Accounts
-            </a>
-          </div>
-        </Transition>
       </nav>
     </Transition>
   );
