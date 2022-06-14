@@ -28,7 +28,7 @@ export default function Profile() {
                   George Isiguzo
                 </span>
                 <span
-                  className="flex outline-btn inline-block 
+                  className="flex outline-btn 
                             text-xs px-4 py-2 leading-none
                             cursor-pointer"
                 >

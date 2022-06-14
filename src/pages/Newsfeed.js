@@ -14,20 +14,14 @@ export default function Newsfeed() {
       <div className="flex flex-col -my-4">
         {/* flex item 1 */}
         <div className="w-full lg:max-w-full lg:flex py-4">
-          {/*  */}
-          <div
-            className="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
-            style={{ backgroundImage: `url(${background})` }}
-            title="post capture"
-          ></div>
-
-          {/*  */}
+          {/* entire post content */}
           <div
             className="rounded-b 
                       lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between 
                       leading-normal bg-slate-800"
           >
             <div className="mb-8">
+              {/* post author name and date */}
               <div className="flex items-center pb-8">
                 <img
                   className="w-10 h-10 rounded-full mr-4"
@@ -39,15 +33,31 @@ export default function Newsfeed() {
                   <p className="text-gray-600">Aug 18</p>
                 </div>
               </div>
-              <div className="text-white font-bold text-xl mb-2">
-                Building a web app that tracks job requirements?
+              {/* --------------------- */}
+              {/* post body and image */}
+              <div className="flex gap-3 flex-col lg:flex-row">
+                <div className="flex flex-col w-full lg:w-3/4">
+                  <div className="text-white font-bold text-xl mb-2">
+                    Building a web app that tracks job requirements?
+                  </div>
+                  <p className=" text-custom-white text-base font-mono">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Voluptatibus quia, nulla! Maiores et perferendis eaque,
+                    exercitationem praesentium nihil.
+                  </p>
+                </div>
+                <div className="w-full lg:w-1/4">
+                  <img
+                    src={background}
+                    alt="cover screenshot"
+                    className="w-full h-full"
+                  />
+                </div>
               </div>
-              <p className=" text-custom-white text-base font-mono">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                Voluptatibus quia, nulla! Maiores et perferendis eaque,
-                exercitationem praesentium nihil.
-              </p>
+              {/* --------------------------- */}
             </div>
+
+            {/* card footer */}
             <div className="flex justify-between">
               <span className="flex">
                 <span className="flex justify-center items-center bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
@@ -101,6 +111,7 @@ export default function Newsfeed() {
                 />
               </svg>
             </div>
+            {/* ------------------------ */}
           </div>
         </div>
         {/* flex item 2*/}
