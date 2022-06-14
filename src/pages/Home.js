@@ -7,9 +7,10 @@ import { Transition } from "@headlessui/react";
 import useWindowSize from "../utils/useWindowSize";
 import Newsfeed from "./Newsfeed";
 import Bookmarks from "./Bookmarks";
-import Account from "./Account";
+import Profile from "./Profile";
 
 import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
+import CreatePost from "./CreatePost";
 
 export default function Home() {
   const { showNavbar, navbarToggler } = useContext(AnimationContext);
@@ -86,7 +87,8 @@ export default function Home() {
             <Routes>
               <Route path="newsfeed" element={<Newsfeed />}></Route>
               <Route path="bookmarks" element={<Bookmarks />}></Route>
-              <Route path="Account" element={<Account />}></Route>
+              <Route path="profile" element={<Profile />}></Route>
+              <Route path="create-post" element={<CreatePost />}></Route>
             </Routes>
           </div>
           <div className="w-full xl:hidden">

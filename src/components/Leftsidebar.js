@@ -60,7 +60,7 @@ export default function Leftsidebar() {
           to="/home/bookmarks"
           className="flex items-center 
                     flex-shrink-0 text-white 
-                    font-bold font-mono p-6 
+                    font-bold font-mono p-6 hover:bg-custom-indigo
                     active:bg-custom-dark-blue focus:bg-custom-dark-blue
                     active:border-l-custom-indigo focus:border-l-custom-indigo focus:border-l-4"
         >
@@ -83,10 +83,10 @@ export default function Leftsidebar() {
           <span className="px-2">Bookmarks</span>
         </Link>
         <Link
-          to="/home/account"
+          to="/home/profile"
           className="flex items-center 
                     flex-shrink-0 text-white 
-                    font-bold font-mono p-6 
+                    font-bold font-mono p-6 hover:bg-custom-indigo
                     active:bg-custom-dark-blue focus:bg-custom-dark-blue
                     active:border-l-custom-indigo focus:border-l-custom-indigo focus:border-l-4"
         >
@@ -111,7 +111,7 @@ export default function Leftsidebar() {
               />
             </svg>
           </span>
-          <span className="px-2">Account</span>
+          <span className="px-2">Profile</span>
         </Link>
         <div
           className="flex items-center 

@@ -4,7 +4,9 @@ import { Link } from "react-router-dom";
 export default function Step3() {
   return (
     <div className="flex gap-4 flex-col text-white">
-      <div
+      {/* option one goes here */}
+      <Link
+        to="/home/create-post"
         className="flex bg-gray-700 rounded-lg 
                   border border-gray-600 px-10 
                   py-4 cursor-pointer hover:ring-custom-indigo hover:border-custom-indigo"
@@ -32,8 +34,8 @@ export default function Step3() {
             wait to contribute to it
           </span>
         </div>
-      </div>
-      {/*  */}
+      </Link>
+      {/* option 2 goes here */}
       <Link
         to="/home/newsfeed"
         className="flex bg-gray-700 rounded-lg 

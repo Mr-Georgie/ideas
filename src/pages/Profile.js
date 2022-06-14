@@ -6,7 +6,7 @@ import twitter from "../images/twitter.png";
 import linkedin from "../images/LinkedIn.png";
 import github from "../images/github.png";
 
-export default function Account() {
+export default function Profile() {
   return (
     <div className="xl:mr-8">
       <div className="text-white text-2xl font-extrabold leading-10 py-4">
@@ -28,14 +28,28 @@ export default function Account() {
                   George Isiguzo
                 </span>
                 <span
-                  className="outline-btn inline-block 
+                  className="flex outline-btn inline-block 
                             text-xs px-4 py-2 leading-none
                             cursor-pointer"
                 >
-                  Edit account
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-3 w-3"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                    />
+                  </svg>
+                  Edit profile
                 </span>
               </div>
-              <p className="text-custom-white text-xl font-normal">
+              <p className="text-custom-white text-xl font-thin italic">
                 Very cool guy with six packs and six foot tall and smart and
                 funny and this is weird
               </p>
