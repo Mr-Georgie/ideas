@@ -3,6 +3,8 @@ import LoadingScreen from "./components/LoadingScreen";
 import Navbar from "./components/Navbar";
 import Welcome from "./pages/Welcome";
 import Footer from "./components/Footer";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
 
 import { AnimationContext } from "./context/AnimationContext";
 import {
@@ -45,6 +47,26 @@ function App() {
                 <>
                   <Navbar />
                   <Onboard />
+                </>
+              }
+            ></Route>
+            <Route
+              path="sign-in"
+              element={
+                <>
+                  <Navbar />
+                  <SignIn />
+                  <Footer />
+                </>
+              }
+            ></Route>
+            <Route
+              path="sign-up"
+              element={
+                <>
+                  <Navbar />
+                  <SignUp />
+                  <Footer />
                 </>
               }
             ></Route>

@@ -5,6 +5,7 @@ import "./index.css";
 import App from "./App";
 
 import { AnimationContextProvider } from "./context/AnimationContext";
+import { UserContextProvider } from "./context/UserContext";
 
 import { BrowserRouter as Router } from "react-router-dom";
 
@@ -12,7 +13,9 @@ ReactDOM.render(
   <React.StrictMode>
     <Router>
       <AnimationContextProvider>
-        <App />
+        <UserContextProvider>
+          <App />
+        </UserContextProvider>
       </AnimationContextProvider>
     </Router>
   </React.StrictMode>,

@@ -1,24 +1,12 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 
 import { Link, useLocation } from "react-router-dom";
+import useInputEvent from "../utils/useInputEvent";
 
 export default function RightCallToAction() {
-  const [inputOnFocus, setInputOnFocus] = useState(false);
   const { pathname } = useLocation();
 
-  const ref = useRef(null);
-
-  const onFocusHandler = (action) => {
-    if (action === "focusIn") {
-      setInputOnFocus(true);
-    } else {
-      setInputOnFocus(false);
-    }
-  };
-
-  const handleClick = () => {
-    ref.current.focus();
-  };
+  const { inputOnFocus, onFocusHandler, ref, handleClick } = useInputEvent();
 
   return (
     <>
@@ -48,8 +36,8 @@ export default function RightCallToAction() {
           <input
             type="text"
             ref={ref}
-            onFocus={() => onFocusHandler("focusIn")}
-            onBlur={() => onFocusHandler("focusOut")}
+            onFocus={() => onFocusHandler()}
+            onBlur={() => onFocusHandler()}
             className="text-white bg-transparent focus:outline-none placeholder-custom-white "
             placeholder="Search"
           />
@@ -171,7 +159,7 @@ export default function RightCallToAction() {
             <div className="w-full mt-8">
               <Link
                 to="/home/create-post"
-                className="solid-indigo-btn text-white text-lg font-bold px-16 py-4 leading-none font-mono"
+                className="solid-indigo-btn text-white inline-block text-lg font-bold px-16 py-4 leading-none font-mono text-center"
               >
                 Create post
               </Link>
@@ -190,7 +178,7 @@ export default function RightCallToAction() {
             <div className="w-full mt-8">
               <Link
                 to="/home/create-post"
-                className="solid-indigo-btn text-white text-lg font-bold px-16 py-4 leading-none font-mono"
+                className="solid-indigo-btn text-white inline-block text-lg font-bold px-16 py-4 leading-none font-mono text-center"
               >
                 Create post
               </Link>
