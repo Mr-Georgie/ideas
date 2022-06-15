@@ -176,12 +176,12 @@ export default function SignIn(props) {
         <div className="sign_up_link space-x-1">
           <span className="text-sm font-light">Already have an account?</span>
           <Link
-            to="/"
+            to="/home/sign-up"
             className="text-indigo-800 
                             hover:text-indigo-900 text-sm 
                             font-light hover:underline"
           >
-            Login
+            Sign Up
           </Link>
         </div>
       </section>
