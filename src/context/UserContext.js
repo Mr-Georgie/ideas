@@ -57,16 +57,16 @@ function UserContextProvider(props) {
   const signUpWithGoogle = () => {
     sdk.account.createOAuth2Session(
       "google",
-      "https://devspace-forum.netlify.app/home",
-      "https://devspace-forum.netlify.app"
+      "https://ideasforgeeks.netlify.app/home",
+      "https://ideasforgeeks.netlify.app"
     );
   };
 
   const signUpWithGithub = () => {
     sdk.account.createOAuth2Session(
       "github",
-      "https://devspace-forum.netlify.app/home",
-      "https://devspace-forum.netlify.app"
+      "https://ideasforgeeks.netlify.app/home",
+      "https://ideasforgeeks.netlify.app"
     );
   };
 
