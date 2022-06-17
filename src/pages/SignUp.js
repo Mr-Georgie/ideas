@@ -220,7 +220,9 @@ export default function SignUp(props) {
           </ul>
         </div>
         <div className="sign_up_link space-x-1">
-          <span className="text-sm font-light">Already have an account?</span>
+          <span className="text-sm font-light text-custom-white hover:underline">
+            Already have an account?
+          </span>
           <Link
             to="/home/sign-in"
             className="text-indigo-800 
