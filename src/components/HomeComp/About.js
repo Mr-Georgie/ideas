@@ -69,7 +69,7 @@ export default function CoreFeatures() {
       <div className="my-8 font-mono">
         <Link
           to="onboard"
-          className="solid-white-btn inline-block text-base lg:text-3xl  font-semibold px-4 py-2 leading-none"
+          className="solid-white-btn inline-block text-xl lg:text-3xl font-semibold px-4 py-2 leading-none"
         >
           Get Started
         </Link>

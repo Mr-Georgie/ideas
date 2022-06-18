@@ -21,7 +21,7 @@ export default function Onboard() {
   };
 
   return (
-    <div className="mx-16 sm:mx-36 md:mx-10 lg:mx-40 xl:mx-64">
+    <div className="mx-6 sm:mx-36 md:mx-10 lg:mx-40 xl:mx-64">
       <div>
         <span className="text-custom-white text-2xl">
           {navigation[navIndex]}

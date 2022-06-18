@@ -10,8 +10,8 @@ export default function Step2() {
         >
           Choose profile photo
         </label>
-        <div className="flex items-center space-x-6 mt-4 mb-8">
-          <div className="shrink-0">
+        <div className="flex flex-col md:flex-row items-center space-x-6 mt-4 mb-8">
+          <div className="shrink-0 mb-3 md:mb-0">
             <img
               className="h-32 w-32 object-cover rounded-full"
               src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1361&q=80"
