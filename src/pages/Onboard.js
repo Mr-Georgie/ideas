@@ -37,7 +37,7 @@ export default function Onboard() {
         {navigation[navIndex] === "Step 3" &&
           "You're all set. Create your first post now or Go see what others have posted"}
       </p>
-      <div className="flex gap-10 mt-4 mb-10">
+      <div className="flex gap-4 md:gap-10 mt-4 mb-10">
         {/*  */}
         <span
           className={`h-3 rounded ${

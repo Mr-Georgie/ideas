@@ -29,7 +29,10 @@ export default function Home() {
       {/* divide-x divide-gray-700 */}
       {/* Add a transparent background when navbar is toggled on */}
       {width < 710 && showNavbar && (
-        <div className="fixed h-screen w-screen bg-trans-black z-10">
+        <div
+          className="fixed h-screen w-screen bg-trans-black z-10"
+          onClick={navbarToggler}
+        >
           <div className="fixed top-10 right-10">
             <button
               type="button"
