@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import useInputEvent from "../utils/useInputEvent";
 
 export default function SignIn(props) {
-  const { signUpUser, signUpWithGoogle } = useContext(UserContext); // implement signUpWithGithub
+  const { loginUser, continueWithGoogle } = useContext(UserContext); // implement signUpWithGithub
 
   /**
    * Create seperate instances of the useInputEvent custom hook
@@ -44,16 +44,18 @@ export default function SignIn(props) {
       ...prevFormData,
       [name]: value,
     }));
+
+    console.log(formData);
   }
 
   return (
     <main className="">
       <div className="flex items-center justify-center p-5">
-        <h4 className="text-3xl font-black text-white">Sign Up</h4>
+        <h4 className="text-3xl font-black text-white">Sign In</h4>
       </div>
       <section className="flex flex-col items-center justify-center">
         <form
-          onSubmit={(event) => signUpUser(event, formData)}
+          onSubmit={(event) => loginUser(event, formData)}
           className="space-y-4"
         >
           <div className="">
@@ -83,7 +85,7 @@ export default function SignIn(props) {
 
                 <input
                   type="email"
-                  ref={emailRef}
+                  // ref={emailRef}
                   name="email"
                   onChange={handleChange}
                   onFocus={() => emailOnFocusHandler()}
@@ -139,7 +141,7 @@ export default function SignIn(props) {
             type="button"
             className="solid-indigo-btn text-white inline-block text-lg font-bold px-16 py-4 leading-none font-mono text-center w-full"
           >
-            Sign up
+            Login
           </button>
         </form>
       </section>
@@ -149,7 +151,7 @@ export default function SignIn(props) {
         </h2>
         <div>
           <ul className="flex items-center justify-around space-x-5">
-            <span className="cursor-pointer" onClick={signUpWithGoogle}>
+            <span className="cursor-pointer" onClick={continueWithGoogle}>
               <li
                 className="border shadow-sm p-2 w-10 h-10 rounded flex items-center 
                             justify-center hover:bg-slate-50 focus:bg-slate-50"
@@ -178,7 +180,7 @@ export default function SignIn(props) {
             Don't have an account?
           </span>
           <Link
-            to="/home/sign-up"
+            to="/sign-up"
             className="text-indigo-800 
                             hover:text-indigo-900 text-sm 
                             font-light hover:underline"

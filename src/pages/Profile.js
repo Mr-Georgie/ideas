@@ -1,14 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
+import useModalToggler from "../utils/useModalToggler";
 
 import background from "../images/bg.jpg";
 import person from "../images/person.png";
-import twitter from "../images/twitter.png";
-import linkedin from "../images/LinkedIn.png";
-import github from "../images/github.png";
+
+import ChangeProfilePic from "../components/ChangeProfilePic";
+import ChangeBio from "../components/ChangeBio";
+import EditOptions from "../components/EditOptions";
+import SocialIcons from "../components/SocialIcons";
+import ChangeSocialLinks from "../components/ChangeSocialLinks";
 
 export default function Profile() {
+  const { showModal: showEditOptions, modalToggler: editOptionsToggler } =
+    useModalToggler();
+
+  const {
+    showModal: showChangeProfilePicModal,
+    modalToggler: changeProfilePicToggler,
+  } = useModalToggler();
+
+  const { showModal: showChangeBioModal, modalToggler: changeBioToggler } =
+    useModalToggler();
+
+  const {
+    showModal: showChangeSocialLinkModal,
+    modalToggler: changeSocialLinkToggler,
+  } = useModalToggler();
+
   return (
-    <div className="xl:mr-8">
+    <div className="xl:mr-8 static">
       <div className="text-white text-2xl font-extrabold leading-10 py-4">
         Account
       </div>
@@ -21,7 +41,7 @@ export default function Profile() {
             src={background}
             alt="Sunset in the mountains"
           />
-          <div className="mt-16">
+          <div className="mt-16 relative">
             <div className="px-6 py-4">
               <div className="flex justify-between items-center mb-2">
                 <span className="text-white font-semibold text-4xl">
@@ -31,6 +51,7 @@ export default function Profile() {
                   className="flex outline-btn 
                             text-xs px-4 py-2 leading-none
                             cursor-pointer"
+                  onClick={editOptionsToggler}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -48,58 +69,76 @@ export default function Profile() {
                   </svg>
                   Edit profile
                 </span>
+                {showEditOptions && (
+                  <EditOptions
+                    changeProfilePicToggler={changeProfilePicToggler}
+                    changeBioToggler={changeBioToggler}
+                    changeSocialLinkToggler={changeSocialLinkToggler}
+                  />
+                )}
               </div>
               <p className="text-custom-white text-xl font-thin italic">
                 Very cool guy with six packs and six foot tall and smart and
                 funny and this is weird
               </p>
             </div>
-            <div className="font-mono px-6 pb-2">
-              <span className="inline-block text-sm font-semibold mr-6 mb-2 text-custom-green">
-                32 Bookmarks
-              </span>
-              <span className="inline-block text-sm font-semibold mr-6 mb-2 text-custom-green">
-                32 Comments
+            <div className="font-mono flex gap-3 items-center pb-2 px-6">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 text-custom-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                />
+              </svg>
+              <span className="text-sm font-semibold text-custom-white">
+                Joined June 29, 2022
               </span>
             </div>
             <div className="px-6 pt-4 pb-2">
-              <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+              <span className="inline-block bg-gray-200 rounded-full px-4 py-2 text-sm font-semibold text-gray-700 mr-2 mb-2">
                 Frontend Web Developer
               </span>
-              <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+              <span className="inline-block bg-gray-200 rounded-full px-4 py-2 text-sm font-semibold text-gray-700 mr-2 mb-2">
                 ReactJs
               </span>
-              <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+              <span className="inline-block bg-gray-200 rounded-full px-4 py-2 text-sm font-semibold text-gray-700 mr-2 mb-2">
                 Python
               </span>
             </div>
             {/* socials goes here */}
-            <div className="flex items-center justify-end px-6 pt-4 pb-2">
-              <span className="text-white mr-6 italic text-xs">
-                Find me on:
-              </span>
-              <img
-                src={twitter}
-                alt="twitter"
-                className="inline-block bg-custom-white rounded-full w-[30px] p-2 text-sm font-semibold mr-2 mb-2"
-              />
-              <img
-                src={linkedin}
-                alt="twitter"
-                className="inline-block bg-custom-white rounded-full w-[30px] p-2 text-sm font-semibold mr-2 mb-2"
-              />
-              <img
-                src={github}
-                alt="twitter"
-                className="inline-block bg-custom-white rounded-full w-[30px] p-2 text-sm font-semibold mr-2 mb-2"
-              />
-            </div>
+            <SocialIcons />
           </div>
           <div className="absolute top-20 left-6 bg-black rounded-full">
             <img className="rounded-full w-32 h-32" src={person} alt="Avatar" />
           </div>
         </div>
       </div>
+
+      {/* ------------ modals goes here --------- */}
+      {showChangeProfilePicModal && (
+        <div className="fixed h-screen w-screen bg-trans-black bottom-0 left-0 z-10">
+          <ChangeProfilePic toggler={changeProfilePicToggler} />
+        </div>
+      )}
+
+      {showChangeBioModal && (
+        <div className="fixed h-screen w-screen bg-trans-black bottom-0 left-0 z-10">
+          <ChangeBio toggler={changeBioToggler} />
+        </div>
+      )}
+
+      {showChangeSocialLinkModal && (
+        <div className="fixed h-screen w-screen bg-trans-black bottom-0 left-0 z-10">
+          <ChangeSocialLinks toggler={changeSocialLinkToggler} />
+        </div>
+      )}
     </div>
   );
 }

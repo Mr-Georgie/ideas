@@ -102,7 +102,6 @@ export default function SignUp(props) {
                 />
               </div>
             </div>
-            {/* --------- email input ends here ------------------ */}
             {/* --------- username input field ------------------- */}
             <div
               className={`bg-gray-800 px-2 rounded-md border mb-4 cursor-pointer ${
@@ -142,7 +141,6 @@ export default function SignUp(props) {
                 />
               </div>
             </div>
-            {/* --------- username input field ends here ---------- */}
             {/* --------- password input field ------------------- */}
             <div
               className={`bg-gray-800 px-2 rounded-md border mb-4 cursor-pointer ${
@@ -179,7 +177,6 @@ export default function SignUp(props) {
                 />
               </div>
             </div>
-            {/* --------- password input field ends here ---------- */}
           </div>
           <button
             type="button"

@@ -54,19 +54,19 @@ function UserContextProvider(props) {
   // }
 
   // For production
-  const signUpWithGoogle = () => {
+  const continueWithGoogle = () => {
     sdk.account.createOAuth2Session(
       "google",
-      "https://ideasforgeeks.netlify.app/home",
-      "https://ideasforgeeks.netlify.app"
+      "http://localhost:3000/home",
+      "http://localhost:3000"
     );
   };
 
-  const signUpWithGithub = () => {
+  const continueWithGithub = () => {
     sdk.account.createOAuth2Session(
       "github",
-      "https://ideasforgeeks.netlify.app/home",
-      "https://ideasforgeeks.netlify.app"
+      "http://localhost:3000/home",
+      "http://localhost:3000"
     );
   };
 
@@ -119,8 +119,8 @@ function UserContextProvider(props) {
         value={{
           user,
           signUpUser,
-          signUpWithGithub,
-          signUpWithGoogle,
+          continueWithGithub,
+          continueWithGoogle,
           fetchUserDetails,
           loginUser,
           logOut,
