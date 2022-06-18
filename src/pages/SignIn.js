@@ -85,7 +85,7 @@ export default function SignIn(props) {
 
                 <input
                   type="email"
-                  // ref={emailRef}
+                  ref={emailRef}
                   name="email"
                   onChange={handleChange}
                   onFocus={() => emailOnFocusHandler()}

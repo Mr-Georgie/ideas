@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import useModalToggler from "../utils/useModalToggler";
 
 import background from "../images/bg.jpg";
