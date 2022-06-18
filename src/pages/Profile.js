@@ -123,19 +123,19 @@ export default function Profile() {
 
       {/* ------------ modals goes here --------- */}
       {showChangeProfilePicModal && (
-        <div className="fixed h-screen w-screen bg-trans-black bottom-0 left-0 z-10">
+        <div className="fixed h-screen w-screen bg-trans-black bottom-0 left-0 z-40">
           <ChangeProfilePic toggler={changeProfilePicToggler} />
         </div>
       )}
 
       {showChangeBioModal && (
-        <div className="fixed h-screen w-screen bg-trans-black bottom-0 left-0 z-10">
+        <div className="fixed h-screen w-screen bg-trans-black bottom-0 left-0 z-40">
           <ChangeBio toggler={changeBioToggler} />
         </div>
       )}
 
       {showChangeSocialLinkModal && (
-        <div className="fixed h-screen w-screen bg-trans-black bottom-0 left-0 z-10">
+        <div className="fixed h-screen w-screen bg-trans-black bottom-0 left-0 z-40">
           <ChangeSocialLinks toggler={changeSocialLinkToggler} />
         </div>
       )}
