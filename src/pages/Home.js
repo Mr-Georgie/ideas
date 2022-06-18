@@ -34,6 +34,8 @@ export default function Home() {
           onClick={navbarToggler}
         >
           <div className="fixed top-10 right-10">
+            {/* Might later use this close toggle button 
+            
             <button
               type="button"
               onClick={navbarToggler}
@@ -55,7 +57,7 @@ export default function Home() {
                   d="M6 18L18 6M6 6l12 12"
                 />
               </svg>
-            </button>
+            </button> */}
           </div>
         </div>
       )}

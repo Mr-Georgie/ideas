@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import { Link } from "react-router-dom";
+import { AnimationContext } from "../context/AnimationContext";
 
 export default function Leftsidebar() {
+  const { setShowNavbar } = useContext(AnimationContext);
+
   return (
     <div className="flex flex-col bg-slate-800">
       <Link to="/" className="font-semibold font-mono tracking-tight text-xl">
@@ -37,6 +40,7 @@ export default function Leftsidebar() {
                     font-bold font-mono p-6 hover:bg-custom-indigo
                     active:bg-custom-dark-blue focus:bg-custom-dark-blue
                     active:border-l-custom-indigo focus:border-l-custom-indigo focus:border-l-4"
+          onClick={() => setShowNavbar(false)}
         >
           <span>
             <svg
@@ -63,6 +67,7 @@ export default function Leftsidebar() {
                     font-bold font-mono p-6 hover:bg-custom-indigo
                     active:bg-custom-dark-blue focus:bg-custom-dark-blue
                     active:border-l-custom-indigo focus:border-l-custom-indigo focus:border-l-4"
+          onClick={() => setShowNavbar(false)}
         >
           <span>
             <svg
@@ -89,6 +94,7 @@ export default function Leftsidebar() {
                     font-bold font-mono p-6 hover:bg-custom-indigo
                     active:bg-custom-dark-blue focus:bg-custom-dark-blue
                     active:border-l-custom-indigo focus:border-l-custom-indigo focus:border-l-4"
+          onClick={() => setShowNavbar(false)}
         >
           <span>
             <svg
@@ -118,6 +124,7 @@ export default function Leftsidebar() {
                     flex-shrink-0 text-white 
                     font-bold font-mono p-6 
                     active:bg-custom-dark-blue hover:bg-custom-indigo focus:bg-custom-dark-blue"
+          onClick={() => setShowNavbar(false)}
         >
           <span>
             <svg
