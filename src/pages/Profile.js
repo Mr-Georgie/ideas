@@ -1,5 +1,5 @@
 import React from "react";
-import useModalToggler from "../utils/useModalToggler";
+import useToggler from "../utils/useToggler";
 
 import background from "../images/bg.jpg";
 import person from "../images/person.png";
@@ -11,21 +11,15 @@ import SocialIcons from "../components/SocialIcons";
 import ChangeSocialLinks from "../components/ChangeSocialLinks";
 
 export default function Profile() {
-  const { showModal: showEditOptions, modalToggler: editOptionsToggler } =
-    useModalToggler();
+  const { on: showEditOptions, toggler: editOptionsToggler } = useToggler();
 
-  const {
-    showModal: showChangeProfilePicModal,
-    modalToggler: changeProfilePicToggler,
-  } = useModalToggler();
+  const { on: showChangeProfilePicModal, toggler: changeProfilePicToggler } =
+    useToggler();
 
-  const { showModal: showChangeBioModal, modalToggler: changeBioToggler } =
-    useModalToggler();
+  const { on: showChangeBioModal, toggler: changeBioToggler } = useToggler();
 
-  const {
-    showModal: showChangeSocialLinkModal,
-    modalToggler: changeSocialLinkToggler,
-  } = useModalToggler();
+  const { on: showChangeSocialLinkModal, toggler: changeSocialLinkToggler } =
+    useToggler();
 
   return (
     <div className="xl:mr-8 static">

@@ -11,6 +11,7 @@ import Profile from "./Profile";
 
 import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import CreatePost from "./CreatePost";
+import Post from "./Post";
 
 export default function Home() {
   const { showNavbar, navbarToggler } = useContext(AnimationContext);
@@ -94,6 +95,7 @@ export default function Home() {
               <Route path="bookmarks" element={<Bookmarks />}></Route>
               <Route path="profile" element={<Profile />}></Route>
               <Route path="create-post" element={<CreatePost />}></Route>
+              <Route path="post" element={<Post />}></Route>
             </Routes>
           </div>
           <div className="w-full xl:hidden">
