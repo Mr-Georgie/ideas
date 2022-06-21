@@ -58,6 +58,43 @@ function UserContextProvider(props) {
     }
   };
 
+  const createNewUserInfo = async (info) => {
+    console.log("about to create user info");
+    console.log("form data: ", info);
+
+    try {
+      const data = await sdk.database.createDocument(
+        userInfoId, // collectionID
+        "unique()", // auto generate ID for each space
+        info
+      );
+      setUserInfo(data);
+
+      console.log("New user info created successfully");
+    } catch (error) {
+      console.log("Oops! An error creating new space");
+      console.log(error);
+    }
+  };
+
+  const updateUserInfo = async (data, documentId) => {
+    console.log("about to update space");
+    console.log("form data: ", data);
+
+    try {
+      await sdk.database.updateDocument(
+        userInfoId, // collectionID
+        documentId, // auto generate ID for each space
+        data
+      );
+
+      console.log("Updated successfully");
+    } catch (error) {
+      console.log("Oops! An error updating this space");
+      console.log(error);
+    }
+  };
+
   const logOut = async () => {
     console.log("login out...");
 
@@ -84,6 +121,8 @@ function UserContextProvider(props) {
           fetchUserInfo,
           logOut,
           toast,
+          createNewUserInfo,
+          updateUserInfo,
         }}
       >
         {props.children}

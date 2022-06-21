@@ -6,7 +6,7 @@ import App from "./App";
 
 import { AnimationContextProvider } from "./context/AnimationContext";
 import { UserContextProvider } from "./context/UserContext";
-
+import { ImageContextProvider } from "./context/ImageContext";
 import { BrowserRouter as Router } from "react-router-dom";
 
 ReactDOM.render(
@@ -14,7 +14,9 @@ ReactDOM.render(
     <Router>
       <AnimationContextProvider>
         <UserContextProvider>
-          <App />
+          <ImageContextProvider>
+            <App />
+          </ImageContextProvider>
         </UserContextProvider>
       </AnimationContextProvider>
     </Router>

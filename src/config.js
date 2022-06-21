@@ -8,6 +8,6 @@ sdk
 
 // const collectionId = "6271702a3a066954ffc0";
 const userInfoId = "62b1e0136da3ecdebc65";
-const imagesId = "62b1eccbb93aa0ff7f94";
+const bucketId = "62b1eccbb93aa0ff7f94";
 
-export { sdk, userInfoId, imagesId };
+export { sdk, userInfoId, bucketId };
