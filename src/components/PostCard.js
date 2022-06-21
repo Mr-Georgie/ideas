@@ -16,19 +16,21 @@ export default function PostCard() {
                     leading-normal bg-slate-800 
                     hover:drop-shadow-2xl focus:drop-shadow-2xl"
       >
-        <Link to="/home" className="mb-8">
+        <div className="mb-8">
           {/* post author name and date */}
-          <div className="flex items-center pb-8">
-            <img
-              className="w-10 h-10 rounded-full mr-4 cursor-pointer hover:opacity-70"
-              src={person}
-              alt="Avatar"
-            />
-            <div className="text-sm text-white cursor-pointer hover:underline">
-              <p className="leading-none">Jonathan Reinink</p>
-              <p className="text-gray-600">Aug 18</p>
+          <Link to="/home">
+            <div className="flex items-center pb-8">
+              <img
+                className="w-10 h-10 rounded-full mr-4 cursor-pointer hover:opacity-70"
+                src={person}
+                alt="Avatar"
+              />
+              <div className="text-sm text-white cursor-pointer hover:underline">
+                <p className="leading-none">Jonathan Reinink</p>
+                <p className="text-gray-600">Aug 18</p>
+              </div>
             </div>
-          </div>
+          </Link>
           {/* --------------------- */}
           {/* post body and image */}
           <Link to="/home/post">
@@ -53,7 +55,7 @@ export default function PostCard() {
             </div>
           </Link>
           {/* --------------------------- */}
-        </Link>
+        </div>
 
         {/* card footer */}
         <div className="flex justify-between">
