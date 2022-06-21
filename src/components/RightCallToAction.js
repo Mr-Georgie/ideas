@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import { Link, useLocation } from "react-router-dom";
 import useInputEvent from "../utils/useInputEvent";
+import { UserContext } from "../context/UserContext";
 
 export default function RightCallToAction() {
   const { pathname } = useLocation();
 
   const { inputOnFocus, onFocusHandler, ref, handleClick } = useInputEvent();
+  const { user } = useContext(UserContext);
 
   return (
     <>
@@ -83,7 +85,9 @@ export default function RightCallToAction() {
         {/* show this on profile page */}
         {pathname === "/home/profile" && (
           <div className="text-white">
-            <div className="font-extrabold text-3xl mb-3">Daniel's Profile</div>
+            <div className="font-extrabold text-3xl mb-3">
+              {user.name}'s Profile
+            </div>
             <div
               className="flex 
                     flex-shrink-0 text-white 
@@ -170,7 +174,7 @@ export default function RightCallToAction() {
         {/* show this on other pages */}
         {pathname !== "/home/create-post" && pathname !== "/home/profile" && (
           <div className="text-white">
-            <div className="font-extrabold text-3xl">Hello Daniel</div>
+            <div className="font-extrabold text-3xl">{user.name}'s Profile</div>
             <span className="font-mono text-custom-white">
               What's new with you? Would you like to share something with the
               community

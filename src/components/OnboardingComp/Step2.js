@@ -1,59 +1,71 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Step2() {
   return (
-    <div className="">
-      <form className="flex flex-col">
-        <label
-          className="block uppercase tracking-wide text-custom-grey text-xs font-bold mb-2"
-          htmlFor="grid-password"
-        >
-          Choose profile photo
-        </label>
-        <div className="flex flex-col md:flex-row items-center space-x-6 mt-4 mb-8">
-          <div className="shrink-0 mb-3 md:mb-0">
-            <img
-              className="h-32 w-32 object-cover rounded-full"
-              src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1361&q=80"
-              alt="add avatar"
+    <div className="flex gap-4 flex-col text-white">
+      {/* option one goes here */}
+      <Link
+        to="/home/create-post"
+        className="flex bg-gray-700 rounded-lg 
+                  border border-gray-600 px-10 
+                  py-4 cursor-pointer hover:ring-custom-indigo hover:border-custom-indigo"
+      >
+        <div className="w-1/6 flex justify-center items-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-10 w-10"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
             />
-          </div>
-          <label className="block">
-            <span className="sr-only">Choose profile photo</span>
-            <input
-              type="file"
-              className="block w-full text-sm text-slate-500 font-mono
-                    file:mr-4 file:py-2 file:px-4
-                    file:rounded-full file:border-0
-                    file:text-sm file:font-semibold
-                    file:bg-violet-50 file:text-violet-700
-                    hover:file:bg-violet-100
-      "
+          </svg>
+        </div>
+        <div className="w-5/6 flex flex-col">
+          <span className="font-bold text-2xl">Write your first post</span>
+          <span className="font-mono">
+            Already have a great idea for an app? Share right away! We can't
+            wait to contribute to it
+          </span>
+        </div>
+      </Link>
+      {/* option 2 goes here */}
+      <Link
+        to="/home/newsfeed"
+        className="flex bg-gray-700 rounded-lg 
+                  border border-gray-600 px-10
+                  py-4 cursor-pointer hover:ring-custom-indigo hover:border-custom-indigo"
+      >
+        <div className=" w-1/6 flex justify-center items-center">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-10 w-10"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
             />
-          </label>
+          </svg>
         </div>
-        {/*  */}
-        <div className="-mx-3 mb-6">
-          <div className="w-full px-3">
-            <div className=" bg-slate-800 p-8 rounded-md border border-gray-700">
-              <div className="mb-3">
-                <label
-                  className="block uppercase tracking-wide text-custom-grey text-xs font-bold mb-2"
-                  htmlFor="grid-password"
-                >
-                  Your Bio
-                </label>
-                <textarea
-                  rows="4"
-                  className="block p-2.5 w-full text-sm text-white bg-gray-700 rounded-lg border focus:outline-none
-                border-gray-600 placeholder-gray-400 focus:ring-custom-indigo focus:border-custom-indigo"
-                  placeholder="Just a paragraph about yourself will do"
-                ></textarea>
-              </div>
-            </div>
-          </div>
+        <div className="w-5/6 flex flex-col">
+          <span className="font-bold text-2xl">Browse and read</span>
+          <span className="font-mono">
+            Browse and see what others are up to. Comment, connect and engage.
+            Awesome collaborations awaits you.
+          </span>
         </div>
-      </form>
+      </Link>
     </div>
   );
 }

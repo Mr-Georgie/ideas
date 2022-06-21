@@ -136,7 +136,7 @@ export default function Navbar() {
               Github Repo
             </a>
             <Link
-              to="/onboard"
+              to="/sign-in"
               className="solid-white-btn inline-block text-sm font-semibold px-4 py-2 leading-none"
             >
               Get started

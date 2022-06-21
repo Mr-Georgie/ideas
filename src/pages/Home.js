@@ -10,6 +10,7 @@ import Bookmarks from "./Bookmarks";
 import Profile from "./Profile";
 
 import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 import CreatePost from "./CreatePost";
 import Post from "./Post";
 
@@ -19,11 +20,15 @@ export default function Home() {
   let location = useLocation();
   let navigate = useNavigate();
 
+  const { user } = useContext(UserContext);
+
   useEffect(() => {
     if (location.pathname === "/home") {
       navigate("/home/newsfeed");
     }
   }, [location.pathname]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  console.log(user);
 
   return (
     <div className="flex flex-wrap static">
@@ -35,30 +40,7 @@ export default function Home() {
           onClick={navbarToggler}
         >
           <div className="fixed top-10 right-10">
-            {/* Might later use this close toggle button 
-            
-            <button
-              type="button"
-              onClick={navbarToggler}
-              className="flex items-center px-3
-                          py-2 border rounded 
-                        bg-custom-indigo text-white"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button> */}
+            {/* { close button will be here} */}
           </div>
         </div>
       )}

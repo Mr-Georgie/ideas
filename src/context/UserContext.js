@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { sdk } from "../config";
+import { sdk, userInfoId } from "../config";
 import { useNavigate } from "react-router-dom";
 
 import { ToastContainer, toast } from "react-toastify";
@@ -12,52 +12,16 @@ function UserContextProvider(props) {
   // will hold user data from fetching from api
   const [user, setUser] = useState({});
 
+  const [userInfo, setUserInfo] = useState({});
+
   // for redirecting users
   const navigate = useNavigate();
-
-  // handle signup events
-  const signUpUser = async (event, data) => {
-    event.preventDefault();
-
-    console.log("button clicked...");
-    // console.log("user input: ", data)
-
-    try {
-      await sdk.account.create(
-        "unique()",
-        data.email,
-        data.password,
-        data.username
-      );
-
-      await sdk.account.createSession(data.email, data.password);
-
-      await sdk.account.createVerification("http://localhost:3000/home");
-
-      toast.info("Verification email sent");
-
-      setTimeout(() => {
-        navigate("/home");
-      }, 5000);
-    } catch (error) {
-      toast.error("Oops! An error occured while signing up");
-      console.log(error);
-    }
-  };
-  // for development mode
-  // const signUpWithGoogle = () => {
-  //   sdk.account.createOAuth2Session(
-  //     'google',
-  //     'http://localhost:3000/home',
-  //     'http://localhost:3000'
-  //     );
-  // }
 
   // For production
   const continueWithGoogle = () => {
     sdk.account.createOAuth2Session(
       "google",
-      "http://localhost:3000/home",
+      "http://localhost:3000/onboard",
       "http://localhost:3000"
     );
   };
@@ -65,7 +29,7 @@ function UserContextProvider(props) {
   const continueWithGithub = () => {
     sdk.account.createOAuth2Session(
       "github",
-      "http://localhost:3000/home",
+      "http://localhost:3000/onboard",
       "http://localhost:3000"
     );
   };
@@ -75,26 +39,21 @@ function UserContextProvider(props) {
     try {
       const data = await sdk.account.get();
       setUser(data);
-      // console.log("data: ", data)
-      // toast.success("Welcome ", data.username)
     } catch (error) {
+      navigate("/");
       toast.error("Oops! Please login to continue...");
-      console.log(error);
     }
   };
 
-  const loginUser = async (event, data) => {
-    event.preventDefault();
-
+  // function to get user data
+  const fetchUserInfo = async () => {
     try {
-      //   await sdk.account.createSession('thereactnewbie@gmail.com', 'password')
-      await sdk.account.createSession(data.email, data.password);
-
-      navigate("/home");
+      const data = await sdk.database.listDocuments(userInfoId);
+      setUserInfo(data);
+      return data;
+      // console.log("spaces: ", data.documents)
     } catch (error) {
-      toast.error(
-        "Oops! An error occured while trying to login. Please make sure your email or password is correct"
-      );
+      toast.error("Oops! An error occured while fetching user info");
       console.log(error);
     }
   };
@@ -118,11 +77,11 @@ function UserContextProvider(props) {
       <UserContext.Provider
         value={{
           user,
-          signUpUser,
+          userInfo,
           continueWithGithub,
           continueWithGoogle,
           fetchUserDetails,
-          loginUser,
+          fetchUserInfo,
           logOut,
           toast,
         }}

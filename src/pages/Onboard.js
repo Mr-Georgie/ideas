@@ -1,11 +1,27 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import Step1 from "../components/OnboardingComp/Step1";
 import Step2 from "../components/OnboardingComp/Step2";
-import Step3 from "../components/OnboardingComp/Step3";
+// import Step3 from "../components/OnboardingComp/Step3";
+import { UserContext } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Onboard() {
+  const { user, userInfo, toast } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  // check if user has a completed account info
+  const getUserInfo = () => {
+    return userInfo.documents.find((info) => info.email === user.email);
+  };
+
+  useEffect(() => {
+    if (getUserInfo() !== undefined) {
+      navigate("/home");
+    }
+  }, []);
+
   //
-  const navigation = ["Step 1", "Step 2", "Step 3"];
+  const navigation = ["Step 1", "Step 2"];
 
   //
   const [navIndex, setNavIndex] = React.useState(0);
@@ -30,11 +46,9 @@ export default function Onboard() {
       <p className="text-gray-600 text-xs italic">
         {/* Conditionally render the content for Step 1, 2, & 3 */}
         {navigation[navIndex] === "Step 1" &&
-          "First, let's create an account for you"}
+          "First, Please tell us a little about yourself"}
 
-        {navigation[navIndex] === "Step 2" && "Tell us a little about yourself"}
-
-        {navigation[navIndex] === "Step 3" &&
+        {navigation[navIndex] === "Step 2" &&
           "You're all set. Create your first post now or Go see what others have posted"}
       </p>
       <div className="flex gap-4 md:gap-10 mt-4 mb-10">
@@ -42,7 +56,7 @@ export default function Onboard() {
         <span
           className={`h-3 rounded ${
             navigation[navIndex] === "Step 1"
-              ? " w-1/2 bg-custom-indigo"
+              ? " w-3/4 bg-custom-indigo"
               : "w-1/4 bg-[#dcdbf571]"
           }`}
         ></span>
@@ -50,53 +64,43 @@ export default function Onboard() {
         <span
           className={`h-3 rounded ${
             navigation[navIndex] === "Step 2"
-              ? "w-1/2 bg-custom-indigo"
-              : "w-1/4 bg-[#dcdbf571]"
-          }`}
-        ></span>
-        {/*  */}
-        <span
-          className={`h-3 rounded ${
-            navigation[navIndex] === "Step 3"
-              ? "w-1/2 bg-custom-indigo"
+              ? "w-3/4 bg-custom-indigo"
               : "w-1/4 bg-[#dcdbf571]"
           }`}
         ></span>
       </div>
       <div className="mb-6">
         <span className="text-custom-white text-3xl font-bold">
-          {navigation[navIndex] === "Step 1" && "Create an account"}
-          {navigation[navIndex] === "Step 2" && "Complete your profile"}
-          {navigation[navIndex] === "Step 3" && "You're all set!"}
+          {navigation[navIndex] === "Step 1" &&
+            "Hi, please complete your profile"}
+          {navigation[navIndex] === "Step 2" && "You're all set!"}
         </span>
       </div>
 
       {navigation[navIndex] === "Step 1" && <Step1 />}
       {navigation[navIndex] === "Step 2" && <Step2 />}
-      {navigation[navIndex] === "Step 3" && <Step3 />}
 
       <div className="flex justify-between gap-10 mt-4 pb-20 font-mono">
-        {navigation[navIndex] !== "Step 1" &&
-          navigation[navIndex] !== "Step 2" && (
-            <div>
-              <button
-                type="button"
-                onClick={() => navHandler("previous", navIndex)}
-                className="solid-white-btn inline-block text-lg font-bold px-16 py-4 leading-none"
-              >
-                Back
-              </button>
-            </div>
-          )}
+        {navigation[navIndex] === "Step 2" && (
+          <div>
+            <button
+              type="button"
+              onClick={() => navHandler("previous", navIndex)}
+              className="solid-white-btn inline-block text-lg font-bold px-16 py-4 leading-none"
+            >
+              Back
+            </button>
+          </div>
+        )}
 
-        {navigation[navIndex] !== "Step 3" && (
+        {navigation[navIndex] === "Step 1" && (
           <div>
             <button
               type="button"
               onClick={() => navHandler("next", navIndex)}
               className="solid-indigo-btn inline-block text-lg font-bold px-16 py-4 leading-none"
             >
-              Next
+              Skip
             </button>
           </div>
         )}

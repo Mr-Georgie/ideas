@@ -1,12 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import LoadingScreen from "./components/LoadingScreen";
 import Navbar from "./components/Navbar";
 import Welcome from "./pages/Welcome";
 import Footer from "./components/Footer";
 import SignIn from "./pages/SignIn";
-import SignUp from "./pages/SignUp";
 
 import { AnimationContext } from "./context/AnimationContext";
+import { UserContext } from "./context/UserContext";
 import {
   Routes,
   Route,
@@ -16,7 +16,12 @@ import Onboard from "./pages/Onboard";
 import Home from "./pages/Home";
 
 function App() {
-  // const { pathname } = useLocation();
+  const { fetchUserDetails, fetchUserInfo } = useContext(UserContext);
+
+  useEffect(() => {
+    fetchUserDetails();
+    fetchUserInfo();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const { isLoading } = useContext(AnimationContext);
 
@@ -56,16 +61,6 @@ function App() {
                 <>
                   <Navbar />
                   <SignIn />
-                  <Footer />
-                </>
-              }
-            ></Route>
-            <Route
-              path="sign-up"
-              element={
-                <>
-                  <Navbar />
-                  <SignUp />
                   <Footer />
                 </>
               }

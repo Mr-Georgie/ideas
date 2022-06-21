@@ -2,9 +2,11 @@ import React, { useContext } from "react";
 
 import { Link } from "react-router-dom";
 import { AnimationContext } from "../context/AnimationContext";
+import { UserContext } from "../context/UserContext";
 
 export default function Leftsidebar() {
   const { setShowNavbar } = useContext(AnimationContext);
+  const { logOut } = useContext(UserContext);
 
   return (
     <div className="flex flex-col bg-slate-800">
@@ -120,11 +122,11 @@ export default function Leftsidebar() {
           <span className="px-2">Profile</span>
         </Link>
         <div
-          className="flex items-center 
+          className="flex items-center cursor-pointer
                     flex-shrink-0 text-white 
                     font-bold font-mono p-6 
                     active:bg-custom-dark-blue hover:bg-custom-indigo focus:bg-custom-dark-blue"
-          onClick={() => setShowNavbar(false)}
+          onClick={() => [logOut(), setShowNavbar(false)]}
         >
           <span>
             <svg
@@ -144,33 +146,6 @@ export default function Leftsidebar() {
           </span>
           <span className="px-2">Logout</span>
         </div>
-
-        {/* 
-        <div
-          className="flex items-center 
-                    flex-shrink-0 text-white 
-                    font-bold font-mono p-6 
-                    active:bg-custom-dark-blue hover:bg-custom-indigo focus:bg-custom-dark-blue"
-        >
-          <span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M5 19a2 2 0 01-2-2V7a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1M5 19h14a2 2 0 002-2v-5a2 2 0 00-2-2H9a2 2 0 00-2 2v5a2 2 0 01-2 2z"
-              />
-            </svg>
-          </span>
-          <span className="px-2">Drafts</span>
-        </div>
-        */}
 
         <div className="mt-16 px-6">
           <div className="flex flex-wrap text-xs">
