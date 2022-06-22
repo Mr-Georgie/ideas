@@ -1,13 +1,18 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { UserContext } from "../../context/UserContext";
 import { ImageContext } from "../../context/ImageContext";
 
 export default function Step1(props) {
-  const { image, uploadImage, getImagePreview, removeUploadedImage } =
-    useContext(ImageContext);
+  const { image, uploadImage, removeUploadedImage } = useContext(ImageContext);
+
+  // will hold the image file just before upload
   const [formImage, setFormImage] = useState();
+
+  // ensure image is only previewed on successful upload
   const [showImagePreview, setShowImagePreview] = useState(false);
-  const { createNewUserInfo, updateUserInfo } = useContext(UserContext);
+
+  // will handle the create of a user info document
+  const { user, createNewUserInfo } = useContext(UserContext);
 
   const isImageUploaded = async () => {
     if (formImage === undefined) {
@@ -18,69 +23,19 @@ export default function Step1(props) {
     }
   };
 
-  const [formData, setFormData] = useState({
-    about: "",
-  });
-
-  // update form user input state on change
-  function handleChange(event) {
-    const { name, value } = event.target;
-
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
-  }
-
   const saveImageToUserInfo = () => {
-    console.log("updating user profile");
     setTimeout(() => {
       if (image["$id"] !== undefined) {
-        // if user info doesn't exist
-        if (props.getUserInfo() === undefined) {
-          createNewUserInfo({
-            displayPicId: image["$id"],
-            email: props.user.email,
-            about: formData.about,
-          });
-        } else {
-          console.log(props.getUserInfo());
-          updateUserInfo(
-            {
-              displayPicId: image["$id"],
-              email: props.user.email,
-              about: formData.about,
-            },
-            props.getUserInfo()["$id"]
-          );
-        }
+        createNewUserInfo({
+          imageId: image["$id"],
+          email: user.email,
+        });
+        alert("profile picture upload successful");
       } else {
-        console.log("could not add image");
-        if (formData.about !== "") {
-          if (props.getUserInfo() === undefined) {
-            createNewUserInfo({
-              email: props.user.email,
-              about: formData.about,
-            });
-          } else {
-            console.log(props.getUserInfo());
-            updateUserInfo(
-              {
-                email: props.user.email,
-                about: formData.about,
-              },
-              props.getUserInfo()["$id"]
-            );
-          }
-          console.log("updated about info");
-        }
+        console.log("image has not been uploaded to the database yet...");
       }
     }, 5000);
   };
-
-  useEffect(() => {
-    saveImageToUserInfo();
-  }, [image]);
 
   const isImageRemoved = () => {
     removeUploadedImage();
@@ -89,19 +44,13 @@ export default function Step1(props) {
 
   return (
     <div className="">
-      <form className="flex flex-col">
-        <label
-          className="block uppercase tracking-wide text-custom-grey text-xs font-bold mb-2"
-          htmlFor="grid-password"
-        >
-          Choose profile photo
-        </label>
+      <form className="flex justify-center">
         <div className="flex flex-col md:flex-row items-center space-x-6 mt-4 mb-8">
           <div className="shrink-0 mb-3 md:mb-0">
             {showImagePreview ? (
               <img
                 className="h-32 w-32 object-cover rounded-full"
-                src={getImagePreview()}
+                src={`https://linode.georgeisiguzo.xyz/v1/storage/buckets/62b1eccbb93aa0ff7f94/files/${image["$id"]}/view?project=62ad8f1b61a1aa4ac561&mode=admin`}
                 alt="add avatar"
               />
             ) : (
@@ -152,37 +101,28 @@ export default function Step1(props) {
             )}
           </div>
         </div>
-        {/*  */}
-        <div className="-mx-3 mb-6">
-          <div className="w-full px-3">
-            <div className=" bg-slate-800 p-8 rounded-md border border-gray-700">
-              <div className="mb-3">
-                <label
-                  className="block uppercase tracking-wide text-custom-grey text-xs font-bold mb-2"
-                  htmlFor="grid-password"
-                >
-                  Your Bio
-                </label>
-                <textarea
-                  rows="4"
-                  className="block p-2.5 w-full text-sm text-white bg-gray-700 rounded-lg border focus:outline-none
-                border-gray-600 placeholder-gray-400 focus:ring-custom-indigo focus:border-custom-indigo"
-                  placeholder="Just a paragraph about yourself will do"
-                  name="about"
-                  onChange={handleChange}
-                  value={formData.about}
-                ></textarea>
-              </div>
-              <span
-                onClick={saveImageToUserInfo}
-                className="outline-btn inline-block text-sm px-4 py-2 leading-none mt-4 cursor-pointer"
-              >
-                Update Bio
-              </span>
-            </div>
-          </div>
-        </div>
       </form>
+      <div className="flex justify-between gap-10 mt-4 pb-20 font-mono">
+        <div>
+          {showImagePreview ? (
+            <button
+              type="button"
+              onClick={() => [saveImageToUserInfo(), props.navHandler("next")]}
+              className="solid-indigo-btn inline-block text-lg font-bold px-16 py-4 leading-none"
+            >
+              Next
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={() => props.navHandler("next")}
+              className="solid-indigo-btn inline-block text-lg font-bold px-16 py-4 leading-none"
+            >
+              Skip
+            </button>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

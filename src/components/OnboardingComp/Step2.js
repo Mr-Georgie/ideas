@@ -1,71 +1,111 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useContext, useEffect } from "react";
+import { UserContext } from "../../context/UserContext";
 
-export default function Step2() {
+export default function Step2(props) {
+  const { user, usersInfo, createNewUserInfo, updateUserInfo } =
+    useContext(UserContext);
+
+  const [currentUserInfo, setCurrentUserInfo] = useState({});
+
+  const [form, setForm] = useState({
+    bio: "",
+  });
+
+  // update form user input state on change
+  function handleChange(event) {
+    const { name, value } = event.target;
+
+    setForm((prevBio) => ({
+      ...prevBio,
+      [name]: value,
+    }));
+  }
+
+  // useEffect(() => {
+  //   if (usersInfo.documents !== undefined) {
+  //     if (
+  //       usersInfo.documents.find((info) => info.email === user.email) !==
+  //       undefined
+  //     ) {
+  //       setCurrentUserInfo(
+  //         usersInfo.documents.find((info) => info.email === user.email)
+  //       );
+  //     }
+  //   }
+  // }, [usersInfo]);
+
+  const updateBio = () => {
+    console.log(currentUserInfo);
+    // if (currentUserInfo.bio === undefined) {
+    //   createNewUserInfo({
+    //     email: user.email,
+    //     bio: form.bio,
+    //   });
+    // } else if (currentUserInfo.bio === "") {
+    //   updateUserInfo({
+    //     email: user.email,
+    //     bio: form.bio,
+    //   });
+    // } else {
+    //   console.log(
+    //     "An error occured while adding bio... See step 2 code for details"
+    //   );
+    // }
+  };
+
   return (
-    <div className="flex gap-4 flex-col text-white">
-      {/* option one goes here */}
-      <Link
-        to="/home/create-post"
-        className="flex bg-gray-700 rounded-lg 
-                  border border-gray-600 px-10 
-                  py-4 cursor-pointer hover:ring-custom-indigo hover:border-custom-indigo"
-      >
-        <div className="w-1/6 flex justify-center items-center">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-10 w-10"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
+    <div className="">
+      <form className="flex flex-col">
+        <div className="-mx-3 mb-6">
+          <div className="w-full px-3">
+            <div className=" bg-slate-800 p-8 rounded-md border border-gray-700">
+              <div className="mb-3">
+                <label
+                  className="block uppercase tracking-wide text-custom-grey text-xs font-bold mb-2"
+                  htmlFor="grid-password"
+                >
+                  Your Bio
+                </label>
+                <textarea
+                  rows="4"
+                  className="block p-2.5 w-full text-sm text-white bg-gray-700 rounded-lg border focus:outline-none
+                border-gray-600 placeholder-gray-400 focus:ring-custom-indigo focus:border-custom-indigo"
+                  placeholder="Just a paragraph about yourself will do"
+                  name="bio"
+                  onChange={handleChange}
+                  value={form.bio}
+                ></textarea>
+              </div>
+              <span
+                onClick={updateBio}
+                className="outline-btn inline-block text-sm px-4 py-2 leading-none mt-4 cursor-pointer"
+              >
+                Update Bio
+              </span>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div className="flex justify-between gap-10 mt-4 pb-20 font-mono">
+        {/* <div>
+          <button
+            type="button"
+            onClick={() => props.navHandler("previous")}
+            className="solid-white-btn inline-block text-lg font-bold px-16 py-4 leading-none"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-            />
-          </svg>
-        </div>
-        <div className="w-5/6 flex flex-col">
-          <span className="font-bold text-2xl">Write your first post</span>
-          <span className="font-mono">
-            Already have a great idea for an app? Share right away! We can't
-            wait to contribute to it
-          </span>
-        </div>
-      </Link>
-      {/* option 2 goes here */}
-      <Link
-        to="/home/newsfeed"
-        className="flex bg-gray-700 rounded-lg 
-                  border border-gray-600 px-10
-                  py-4 cursor-pointer hover:ring-custom-indigo hover:border-custom-indigo"
-      >
-        <div className=" w-1/6 flex justify-center items-center">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-10 w-10"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
+            Back
+          </button>
+        </div> */}
+        <div>
+          <button
+            type="button"
+            onClick={() => props.navHandler("next")}
+            className="solid-indigo-btn inline-block text-lg font-bold px-16 py-4 leading-none"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-            />
-          </svg>
+            Skip
+          </button>
         </div>
-        <div className="w-5/6 flex flex-col">
-          <span className="font-bold text-2xl">Browse and read</span>
-          <span className="font-mono">
-            Browse and see what others are up to. Comment, connect and engage.
-            Awesome collaborations awaits you.
-          </span>
-        </div>
-      </Link>
+      </div>
     </div>
   );
 }

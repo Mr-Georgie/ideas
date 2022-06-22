@@ -12,7 +12,7 @@ function UserContextProvider(props) {
   // will hold user data from fetching from api
   const [user, setUser] = useState({});
 
-  const [userInfo, setUserInfo] = useState({});
+  const [usersInfo, setUsersInfo] = useState({});
 
   // for redirecting users
   const navigate = useNavigate();
@@ -49,7 +49,7 @@ function UserContextProvider(props) {
   const fetchUserInfo = async () => {
     try {
       const data = await sdk.database.listDocuments(userInfoId);
-      setUserInfo(data);
+      setUsersInfo(data);
       return data;
       // console.log("spaces: ", data.documents)
     } catch (error) {
@@ -68,11 +68,11 @@ function UserContextProvider(props) {
         "unique()", // auto generate ID for each space
         info
       );
-      setUserInfo(data);
+      setUsersInfo(data);
 
       console.log("New user info created successfully");
     } catch (error) {
-      console.log("Oops! An error creating new space");
+      console.log("Oops! An error creating new info");
       console.log(error);
     }
   };
@@ -114,7 +114,7 @@ function UserContextProvider(props) {
       <UserContext.Provider
         value={{
           user,
-          userInfo,
+          usersInfo,
           continueWithGithub,
           continueWithGoogle,
           fetchUserDetails,

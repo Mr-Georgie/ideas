@@ -7,7 +7,7 @@ sdk
   .setProject("62ad8f1b61a1aa4ac561"); // Your project ID
 
 // const collectionId = "6271702a3a066954ffc0";
-const userInfoId = "62b1e0136da3ecdebc65";
+const userInfoId = "62b37e3070faee36346d";
 const bucketId = "62b1eccbb93aa0ff7f94";
 
 export { sdk, userInfoId, bucketId };

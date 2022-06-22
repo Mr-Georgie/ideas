@@ -19,25 +19,13 @@ function ImageContextProvider(props) {
       const newImage = await sdk.storage.createFile(bucketId, "unique()", file);
       setImage(newImage);
 
-      console.log("Uploading image...");
+      console.log("image uploaded...");
       return image["$id"];
     } catch (error) {
       console.log("Oops! An error occured while uploading");
       console.log(error);
     }
   };
-
-  //   const getAllImages = async () => {
-  //     try {
-  //       const images = await sdk.storage.listFiles(bucketId);
-  //       setImageList(images.files);
-
-  //       console.log("Images fetched");
-  //     } catch (error) {
-  //       console.log("Oops! An error occured while fetching images");
-  //       console.log(error);
-  //     }
-  //   };
 
   // handles image preview on the interface
   const getImagePreview = () => {
