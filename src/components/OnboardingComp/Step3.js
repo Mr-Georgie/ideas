@@ -67,6 +67,7 @@ export default function Step3(props) {
         </div>
       </Link>
 
+      {/* navigation button */}
       <div className="flex justify-between gap-10 mt-4 pb-20 font-mono">
         <div>
           <button
