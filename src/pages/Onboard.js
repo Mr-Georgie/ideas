@@ -30,7 +30,7 @@ export default function Onboard() {
   //
   const navigation = ["Step 1", "Step 2", "Step 3"];
 
-  //
+  // to add control to navigation
   const [navIndex, setNavIndex] = React.useState(0);
 
   //
