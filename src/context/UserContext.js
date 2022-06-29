@@ -21,16 +21,16 @@ function UserContextProvider(props) {
   const continueWithGoogle = () => {
     sdk.account.createOAuth2Session(
       "google",
-      "http://localhost:3000/home",
-      "http://localhost:3000"
+      "https://ideasforgeeks.netlify.app/home",
+      "https://ideasforgeeks.netlify.app"
     );
   };
 
   const continueWithGithub = () => {
     sdk.account.createOAuth2Session(
       "github",
-      "http://localhost:3000/home",
-      "http://localhost:3000"
+      "https://ideasforgeeks.netlify.app/home",
+      "https://ideasforgeeks.netlify.app"
     );
   };
 
@@ -41,7 +41,7 @@ function UserContextProvider(props) {
       setUser(data);
     } catch (error) {
       navigate("/");
-      toast.error("Oops! Please login to continue...");
+      console.log("Oops! Please login to continue...");
     }
   };
 
@@ -53,7 +53,7 @@ function UserContextProvider(props) {
       return data;
       // console.log("spaces: ", data.documents)
     } catch (error) {
-      toast.error("Oops! An error occured while fetching user info");
+      console.log("Oops! An error occured while fetching user info");
       console.log(error);
     }
   };
@@ -102,7 +102,7 @@ function UserContextProvider(props) {
     if (Object.keys(user).length !== 0) {
       await sdk.account.deleteSession("current");
     } else {
-      toast.warning("No user session was detected");
+      console.log("No user session was detected");
     }
 
     navigate("/");
