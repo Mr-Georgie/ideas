@@ -21,7 +21,7 @@ function UserContextProvider(props) {
   const continueWithGoogle = () => {
     sdk.account.createOAuth2Session(
       "google",
-      "http://localhost:3000/onboard",
+      "http://localhost:3000/home",
       "http://localhost:3000"
     );
   };
@@ -29,7 +29,7 @@ function UserContextProvider(props) {
   const continueWithGithub = () => {
     sdk.account.createOAuth2Session(
       "github",
-      "http://localhost:3000/onboard",
+      "http://localhost:3000/home",
       "http://localhost:3000"
     );
   };

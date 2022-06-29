@@ -1,13 +1,13 @@
-import React, { useContext, useEffect } from "react";
+import React from "react";
 import Step1 from "../components/OnboardingComp/Step1";
 import Step2 from "../components/OnboardingComp/Step2";
 import Step3 from "../components/OnboardingComp/Step3";
-import { UserContext } from "../context/UserContext";
-import { useNavigate } from "react-router-dom";
+// import { UserContext } from "../context/UserContext";
+// import { useNavigate } from "react-router-dom";
 
 export default function Onboard() {
-  const { user, usersInfo } = useContext(UserContext);
-  const navigate = useNavigate();
+  // const { user, usersInfo } = useContext(UserContext);
+  // const navigate = useNavigate();
 
   // check if user has a completed account info
   // const getUserInfo = () => {
@@ -19,13 +19,13 @@ export default function Onboard() {
   //   }
   // };
 
-  useEffect(() => {
-    // if (getUserInfo() !== undefined) {
-    //   navigate("/home");
-    // }
-    // getUserInfo();
-    console.log(usersInfo);
-  }, [usersInfo]);
+  // useEffect(() => {
+  //   // if (getUserInfo() !== undefined) {
+  //   //   navigate("/home");
+  //   // }
+  //   // getUserInfo();
+  //   console.log(usersInfo);
+  // }, [usersInfo]);
 
   //
   const navigation = ["Step 1", "Step 2", "Step 3"];

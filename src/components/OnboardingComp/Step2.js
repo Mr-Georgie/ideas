@@ -1,11 +1,15 @@
-import React, { useState, useContext, useEffect } from "react";
-import { UserContext } from "../../context/UserContext";
+import React, { useState } from "react";
+// import { UserContext } from "../../context/UserContext";
 
 export default function Step2(props) {
-  const { user, usersInfo, createNewUserInfo, updateUserInfo } =
-    useContext(UserContext);
+  // const { user, usersInfo, createNewUserInfo, updateUserInfo } =
+  //   useContext(UserContext);
 
-  const [currentUserInfo, setCurrentUserInfo] = useState({});
+  const info = () => {
+    alert("Oops! Still working on this feature");
+  };
+
+  // const [currentUserInfo, setCurrentUserInfo] = useState({});
 
   const [form, setForm] = useState({
     bio: "",
@@ -21,37 +25,9 @@ export default function Step2(props) {
     }));
   }
 
-  // useEffect(() => {
-  //   if (usersInfo.documents !== undefined) {
-  //     if (
-  //       usersInfo.documents.find((info) => info.email === user.email) !==
-  //       undefined
-  //     ) {
-  //       setCurrentUserInfo(
-  //         usersInfo.documents.find((info) => info.email === user.email)
-  //       );
-  //     }
-  //   }
-  // }, [usersInfo]);
-
-  const updateBio = () => {
-    console.log(currentUserInfo);
-    // if (currentUserInfo.bio === undefined) {
-    //   createNewUserInfo({
-    //     email: user.email,
-    //     bio: form.bio,
-    //   });
-    // } else if (currentUserInfo.bio === "") {
-    //   updateUserInfo({
-    //     email: user.email,
-    //     bio: form.bio,
-    //   });
-    // } else {
-    //   console.log(
-    //     "An error occured while adding bio... See step 2 code for details"
-    //   );
-    // }
-  };
+  // const updateBio = () => {
+  //   console.log(currentUserInfo);
+  // };
 
   return (
     <div className="">
@@ -77,7 +53,7 @@ export default function Step2(props) {
                 ></textarea>
               </div>
               <span
-                onClick={updateBio}
+                onClick={info}
                 className="outline-btn inline-block text-sm px-4 py-2 leading-none mt-4 cursor-pointer"
               >
                 Update Bio

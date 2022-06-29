@@ -6,7 +6,11 @@ import github from "../images/github.png";
 import { UserContext } from "../context/UserContext";
 
 export default function SignIn(props) {
-  const { continueWithGithub, continueWithGoogle } = useContext(UserContext);
+  const { continueWithGoogle } = useContext(UserContext);
+
+  const info = () => {
+    alert("Oops! Still working on this feature");
+  };
 
   return (
     <main className="">
@@ -26,7 +30,7 @@ export default function SignIn(props) {
             </div>
           </div>
 
-          <div className="cursor-pointer" onClick={continueWithGithub}>
+          <div className="cursor-pointer" onClick={info}>
             <div
               className="flex items-center justify-center shadow-sm p-4 
                             rounded border hover:bg-slate-50 focus:bg-slate-50
