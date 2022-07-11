@@ -4,7 +4,7 @@ Ideas let's you share your crazy ideas with like minded people. Get positive fee
 
 ## Preview
 
-Not available yet
+![ideas](https://user-images.githubusercontent.com/28518667/178259193-019794a4-e0a8-4678-9e61-dc16e014ad0b.gif)
 
 ## Description
 
@@ -19,10 +19,16 @@ Ideas is built with the following technologies:
 In the project directory, you can run:
 
 ```bash
-npm start
+npm install
 ```
 
 This will install all the dependencies from the package.json file
+
+Then:
+
+```bash
+npm start
+```
 
 ## Contributing
 
