@@ -125,7 +125,7 @@ export default function NDAWall() {
             You swear on your favorite text editor to:
           </p>
           <ul style={{ paddingLeft: '24px', marginBottom: '12px' }}>
-            <li style={{ marginBottom: '4px' }}>Keep these zany secrets safe.</li>
+            <li style={{ marginBottom: '4px' }}>Keep these Zzzzany secrets safe.</li>
             <li style={{ marginBottom: '4px' }}>Never steal an idea without leaving a "Build It" stamp.</li>
             <li>Savor the chaos.</li>
           </ul>
