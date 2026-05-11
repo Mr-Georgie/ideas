@@ -145,44 +145,6 @@ function PostedSplash() {
   );
 }
 
-// ─── iOS install banner ───────────────────────────────────────
-
-function useIOSInstallBanner() {
-  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-  const isStandalone = window.navigator.standalone === true;
-  const [dismissed, setDismissed] = useState(
-    () => localStorage.getItem('ios_install_dismissed') === '1'
-  );
-  return {
-    show: isIOS && !isStandalone && !dismissed,
-    dismiss: () => { localStorage.setItem('ios_install_dismissed', '1'); setDismissed(true); },
-  };
-}
-
-function IOSInstallBanner({ onDismiss }) {
-  return (
-    <div style={{
-      background: 'var(--mustard)', borderTop: '2px solid var(--ink)',
-      padding: '10px 16px',
-      display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0,
-    }} className="fade-in">
-      <div style={{ fontSize: 18, flexShrink: 0 }}>📌</div>
-      <div style={{ flex: 1 }}>
-        <div className="f-mono" style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.14em', color: 'var(--ink)', marginBottom: 2 }}>
-          ADD TO HOME SCREEN
-        </div>
-        <div className="f-body" style={{ fontSize: 12, color: 'var(--ink-2)', lineHeight: 1.4 }}>
-          Tap <strong>Share ⎙</strong> then <strong>"Add to Home Screen"</strong>
-        </div>
-      </div>
-      <button onClick={onDismiss} className="tap" style={{
-        background: 'none', border: 'none',
-        fontFamily: "'JetBrains Mono', monospace",
-        fontSize: 14, color: 'var(--ink)', cursor: 'pointer', flexShrink: 0, padding: 4,
-      }}>✕</button>
-    </div>
-  );
-}
 
 // ─── Palette switcher ─────────────────────────────────────────
 
@@ -248,7 +210,6 @@ function AppInner() {
   const [posted, setPosted]     = useState(false);
   const vpw = useViewportWidth();
   const isDesktop = vpw >= 1100;
-  const { show: showIOSBanner, dismiss: dismissIOSBanner } = useIOSInstallBanner();
 
   useEffect(() => { applyPalette(palette); }, [palette]);
 
@@ -330,10 +291,7 @@ function AppInner() {
         </div>
       )}
 
-      {/* iOS install hint */}
-      {!needsAuth && showIOSBanner && !openIdea && (
-        <IOSInstallBanner onDismiss={dismissIOSBanner} />
-      )}
+
 
       {/* bottom nav */}
       {!needsAuth && !openIdea && (

@@ -7,6 +7,31 @@ import { PostIt } from './shared/PostIt';
 import { Icon } from './shared/Icon';
 import { TOP_RESPONSES } from '../data/feedData';
 
+function CopyLinkButton({ idea }) {
+  const [copied, setCopied] = useState(false);
+  const url = `${window.location.origin}/i/${idea.id}`;
+
+  const copy = () => {
+    navigator.clipboard.writeText(url).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1800);
+    });
+  };
+
+  return (
+    <button onClick={copy} className="tap" style={{
+      width: '100%', marginTop: 12, padding: '11px 14px',
+      background: copied ? 'var(--lime)' : 'transparent',
+      border: '2px solid var(--ink)',
+      boxShadow: copied ? '3px 3px 0 var(--ink)' : 'none',
+      fontFamily: "'JetBrains Mono', monospace", fontWeight: 700, fontSize: 11,
+      letterSpacing: '0.1em', transition: 'background 0.15s',
+    }}>
+      {copied ? 'LINK COPIED ✓' : 'COPY LINK'}
+    </button>
+  );
+}
+
 const SHARE_FORMATS = [
   { k: 'story',  label: 'STORY',  sub: '9:16',    w: 320, h: 568, badge: 'IG / TIKTOK' },
   { k: 'square', label: 'SQUARE', sub: '1:1',     w: 380, h: 380, badge: 'INSTAGRAM' },
@@ -126,17 +151,11 @@ function ShareImage({ idea, format }) {
 
 export function ShareSheet({ idea, onClose }) {
   const [format, setFormat] = useState('story');
-  const [savedFlash, setSavedFlash] = useState(null);
 
   if (!idea) return null;
   const fmt = SHARE_FORMATS.find(f => f.k === format);
   const maxW = 260;
   const scale = Math.min(maxW / fmt.w, (format === 'story' ? 380 : 280) / fmt.h);
-
-  const flash = (msg) => {
-    setSavedFlash(msg);
-    setTimeout(() => setSavedFlash(null), 1500);
-  };
 
   return (
     <div
@@ -214,61 +233,14 @@ export function ShareSheet({ idea, onClose }) {
         </div>
 
         <div style={{ padding: '14px 18px 0' }}>
-          <div className="f-mono" style={{ fontSize: 10, color: 'var(--ink-3)', letterSpacing: '0.16em', marginBottom: 8 }}>SHARE TO ↓</div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 8 }}>
-            {[
-              { k: 'ig', label: 'IG STORY',   color: 'var(--pink)' },
-              { k: 'x',  label: 'X / TWITTER', color: 'var(--blue)' },
-              { k: 'wa', label: 'WHATSAPP',    color: 'var(--lime)' },
-              { k: 'tt', label: 'TIKTOK',      color: 'var(--mustard)' },
-            ].map(s => (
-              <button
-                key={s.k}
-                onClick={() => flash(`opening ${s.label.toLowerCase()}…`)}
-                className="tap"
-                style={{
-                  padding: '10px 4px',
-                  background: 'var(--paper)', border: '2px solid var(--ink)',
-                  boxShadow: `2px 2px 0 ${s.color}`,
-                  display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4,
-                }}
-              >
-                <div style={{ width: 22, height: 22, background: s.color, border: '1.5px solid var(--ink)' }} />
-                <span className="f-mono" style={{ fontSize: 8.5, fontWeight: 700, letterSpacing: '0.06em' }}>{s.label}</span>
-              </button>
-            ))}
-          </div>
-
-          <div style={{ display: 'flex', gap: 8, marginTop: 12 }}>
-            <button onClick={() => flash('saved to camera roll ✓')} className="tap" style={{
-              flex: 1, padding: '11px 10px',
-              background: 'var(--ink)', color: 'var(--paper)',
-              border: '2px solid var(--ink)', boxShadow: '3px 3px 0 var(--pink)',
-              fontFamily: "'JetBrains Mono', monospace", fontWeight: 700, fontSize: 11,
-              letterSpacing: '0.1em',
-            }}>↓ SAVE IMAGE</button>
-            <button onClick={() => flash('link copied ✓')} className="tap" style={{
-              padding: '11px 14px',
-              background: 'transparent', border: '2px solid var(--ink)',
-              fontFamily: "'JetBrains Mono', monospace", fontWeight: 700, fontSize: 11,
-              letterSpacing: '0.1em',
-            }}>COPY LINK</button>
-          </div>
-
-          {savedFlash && (
-            <div className="fade-in" style={{ marginTop: 12 }}>
-              <PostIt color="var(--lime)" tilt={-1} style={{ fontSize: 12, textAlign: 'center' }}>
-                {savedFlash}
-              </PostIt>
+          <PostIt color="var(--mustard)" tilt={-1}>
+            <div className="f-mono" style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.12em', marginBottom: 4 }}>HOW TO SHARE</div>
+            <div className="f-body" style={{ fontSize: 13, lineHeight: 1.45 }}>
+              Take a screenshot and post it — IG, X, TikTok, wherever. People asking <em>"wait, what app is this?"</em> is the whole point.
             </div>
-          )}
+          </PostIt>
 
-          <div style={{ marginTop: 14, padding: '10px 12px', background: 'var(--paper-2)', border: '1.5px dashed var(--ink-3)' }}>
-            <div className="f-mono" style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.1em', color: 'var(--ink-2)', marginBottom: 4 }}>✺ THE PLAN</div>
-            <div className="f-body" style={{ fontSize: 12, color: 'var(--ink-2)', lineHeight: 1.4 }}>
-              we made this look weird on purpose. people asking <em>"wait, what app is this?"</em> is the marketing.
-            </div>
-          </div>
+          <CopyLinkButton idea={idea} />
         </div>
       </div>
     </div>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#14100c"/>
+  <!-- Pink I — the signature brand mark -->
+  <text
+    x="256" y="390"
+    text-anchor="middle"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-weight="700"
+    font-size="380"
+    fill="#ff3d7f"
+  >I</text>
+  <!-- Small wordmark at bottom -->
+  <text
+    x="256" y="480"
+    text-anchor="middle"
+    font-family="'Courier New', monospace"
+    font-weight="700"
+    font-size="48"
+    letter-spacing="18"
+    fill="#f3ede0"
+    opacity="0.55"
+  >IDIAS</text>
+</svg>
