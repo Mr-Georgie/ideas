@@ -50,7 +50,7 @@ function CommentBlock({ c, i }) {
   );
 }
 
-export function IdeaPost({ idea, onBack }) {
+export function IdeaPost({ idea, onBack, isDesktop }) {
   const { session, profile } = useAuth();
   const { counts, myReaction, toggle } = useReactions(idea?.id);
   const { comments, post } = useComments(idea?.id);
@@ -70,7 +70,7 @@ export function IdeaPost({ idea, onBack }) {
   };
 
   return (
-    <div className="paper-bg" style={{ minHeight: '100%', paddingBottom: 110 }}>
+    <div className="paper-bg" style={{ minHeight: '100%', paddingBottom: isDesktop ? 0 : 110 }}>
       {/* top bar */}
       <div style={{
         position: 'sticky', top: 0,
@@ -208,11 +208,17 @@ export function IdeaPost({ idea, onBack }) {
         </div>
       </div>
 
-      {/* sticky comment bar */}
+      {/* comment bar */}
       <div style={{
-        position: 'absolute', left: 0, right: 0, bottom: 84,
-        padding: '10px 14px',
-        background: 'var(--paper)', borderTop: '2px solid var(--ink)',
+        ...(isDesktop ? {
+          padding: '10px 14px',
+          marginTop: 24,
+          background: 'var(--paper)', borderTop: '2px solid var(--ink)',
+        } : {
+          position: 'absolute', left: 0, right: 0, bottom: 84,
+          padding: '10px 14px',
+          background: 'var(--paper)', borderTop: '2px solid var(--ink)',
+        }),
       }}>
         {session ? (
           <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>

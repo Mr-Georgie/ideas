@@ -33,7 +33,7 @@ const FILTERS = [
 
 // ─── Top bar ──────────────────────────────────────────────────
 
-function DesktopTopBar({ tab, setTab, openPost, newCount }) {
+function DesktopTopBar({ tab, setTab, openPost, newCount, onLogoClick }) {
   const items = [
     { id: 'feed',    label: 'BOARD' },
     { id: 'notifs',  label: 'PINGS', badge: newCount },
@@ -47,7 +47,7 @@ function DesktopTopBar({ tab, setTab, openPost, newCount }) {
       padding: '14px 32px',
       display: 'flex', alignItems: 'center', gap: 24,
     }}>
-      <div style={{ position: 'relative' }}>
+      <div style={{ position: 'relative', cursor: 'pointer' }} onClick={onLogoClick}>
         <Tape left={-4} top={-12} color="rgba(255,61,127,0.55)" tilt={-9} w={46} h={14} />
         <div className="f-display" style={{ fontSize: 32, lineHeight: 0.9, display: 'flex', alignItems: 'flex-start', gap: 6 }}>
           <span>ID<span style={{ color: 'var(--pink)' }}>I</span>AS</span>
@@ -268,7 +268,7 @@ export function DesktopShell({ tab, setTab, openIdea, setOpenIdea, openPost, pos
   const main = openIdea ? (
     <div style={{ padding: '40px 32px 80px' }}>
       <div style={{ maxWidth: 680, margin: '0 auto' }}>
-        <IdeaPost idea={openIdea} onBack={() => setOpenIdea(null)} />
+        <IdeaPost idea={openIdea} onBack={() => setOpenIdea(null)} isDesktop />
       </div>
     </div>
   ) : tab === 'feed' ? (
@@ -294,7 +294,13 @@ export function DesktopShell({ tab, setTab, openIdea, setOpenIdea, openPost, pos
       minHeight: '100vh', width: '100%',
       background: 'var(--paper)', color: 'var(--ink)',
     }} className="paper-bg">
-      <DesktopTopBar tab={tab} setTab={setTab} openPost={openPost} newCount={newCount} />
+      <DesktopTopBar
+        tab={tab}
+        setTab={(t) => { setOpenIdea(null); setTab(t); }}
+        openPost={openPost}
+        newCount={newCount}
+        onLogoClick={() => { setOpenIdea(null); setTab('feed'); }}
+      />
       <main>{main}</main>
 
       {/* PostFlow as centered modal */}
