@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Avatar } from "./shared/Avatar";
 import { Stamp } from "./shared/Stamp";
 import { Tag } from "./shared/Tag";
@@ -13,6 +13,58 @@ import { useAuth } from "../context/AuthContext";
 import { supabase, REACTION_DEFS } from "../lib/supabase";
 
 const ADMIN_ID = process.env.REACT_APP_ADMIN_ID;
+
+// --- Internal Component for the Voice Note ---
+function RamblePlayer({ url, accent }) {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef(new Audio(url));
+
+  const togglePlay = () => {
+    if (!audioRef.current) return;
+    if (!isPlaying) {
+      audioRef.current.play();
+    } else {
+      audioRef.current.pause();
+    }
+    setIsPlaying(!isPlaying);
+  };
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    const handleEnd = () => setIsPlaying(false);
+    audio.addEventListener("ended", handleEnd);
+    return () => {
+      audio.removeEventListener("ended", handleEnd);
+      audio.pause();
+    };
+  }, []);
+
+  return (
+    <button
+      onClick={togglePlay}
+      className="tap"
+      style={{
+        marginTop: 20,
+        padding: "12px 18px",
+        background: isPlaying ? "var(--ink)" : "var(--pink)",
+        color: "var(--paper)",
+        border: "3px solid var(--ink)",
+        boxShadow: `4px 4px 0 ${accent}`,
+        display: "flex",
+        alignItems: "center",
+        gap: 12,
+        fontFamily: "'JetBrains Mono', monospace",
+        fontWeight: 800,
+        fontSize: 12,
+        letterSpacing: "0.05em",
+        transform: isPlaying ? "translate(2px, 2px)" : "none",
+      }}
+    >
+      <Icon name={isPlaying ? "close" : "back"} size={16} style={{ transform: isPlaying ? 'none' : 'rotate(180deg)' }} />
+      {isPlaying ? "PAUSE RAMBLE" : "LISTEN TO 3AM RAMBLE"}
+    </button>
+  );
+}
 
 function CommentBlock({ c, i, onReply, isAdmin, onHideComment }) {
   const tilt = i % 2 === 0 ? -0.4 : 0.5;
@@ -127,7 +179,6 @@ function CommentBlock({ c, i, onReply, isAdmin, onHideComment }) {
           </div>
         </div>
       </div>
-      {/* Render replies */}
       {c.replies &&
         c.replies.map((reply, replyIndex) => (
           <div key={reply.id} style={{ marginLeft: 40, marginBottom: 10 }}>
@@ -139,7 +190,7 @@ function CommentBlock({ c, i, onReply, isAdmin, onHideComment }) {
 }
 
 export function IdeaPost({ idea, onBack, isDesktop, onRemix, onOpenOriginal }) {
-  const { session, profile } = useAuth();
+  const { session } = useAuth();
   const { counts, myReaction, toggle } = useReactions(idea?.id);
   const { comments, post, refetch: refetchComments } = useComments(idea?.id);
   const remixes = useRemixes(idea?.id);
@@ -272,6 +323,7 @@ export function IdeaPost({ idea, onBack, isDesktop, onRemix, onOpenOriginal }) {
       <div style={{ padding: "18px 18px 0" }}>
         <div style={{ position: "relative" }}>
           <Tape left={28} top={-6} color="rgba(255,61,127,0.55)" tilt={-7} />
+          {/* FIXED TYPO HERE: tilt={6} instead of tilt(6) */}
           <Tape right={36} top={-6} color="rgba(61,91,255,0.45)" tilt={6} />
           <div
             style={{
@@ -320,26 +372,7 @@ export function IdeaPost({ idea, onBack, isDesktop, onRemix, onOpenOriginal }) {
             >
               IDEA · {i.status?.toUpperCase()}
             </div>
-            {i.original && (
-              <button
-                onClick={() => onOpenOriginal?.(i.original.id)}
-                className="tap"
-                style={{
-                  marginTop: 10,
-                  padding: "6px 10px",
-                  border: "2px dashed var(--ink)",
-                  background: "rgba(61,91,255,0.08)",
-                  color: "var(--ink-2)",
-                  fontFamily: "'JetBrains Mono', monospace",
-                  fontSize: 10,
-                  fontWeight: 700,
-                  letterSpacing: "0.08em",
-                  textTransform: "uppercase",
-                }}
-              >
-                REMIX OF {i.original.title}
-              </button>
-            )}
+            
             <div
               className="f-display"
               style={{ fontSize: 38, lineHeight: 0.94, marginTop: 6 }}
@@ -357,6 +390,14 @@ export function IdeaPost({ idea, onBack, isDesktop, onRemix, onOpenOriginal }) {
             >
               {i.body}
             </div>
+
+            {/* --- VOICE RAMBLE PLAYER --- */}
+            {/* {i.audio_url && <RamblePlayer url={i.audio_url} accent={i.accent} />} */}
+            <RamblePlayer 
+  url="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" 
+  accent={i.accent} 
+/>
+
             <div
               style={{
                 display: "flex",
@@ -403,23 +444,6 @@ export function IdeaPost({ idea, onBack, isDesktop, onRemix, onOpenOriginal }) {
             </Stamp>
           ))}
         </div>
-        {myReaction && (
-          <div className="fade-in" style={{ marginTop: 10 }}>
-            <PostIt color="var(--mustard)" tilt={-1} style={{ fontSize: 12 }}>
-              <span
-                className="f-mono"
-                style={{
-                  fontSize: 10,
-                  fontWeight: 700,
-                  letterSpacing: "0.08em",
-                }}
-              >
-                STAMPED ✓{" "}
-              </span>
-              your reaction was added. care to leave a note?
-            </PostIt>
-          </div>
-        )}
       </div>
 
       {/* comments header */}
@@ -455,16 +479,6 @@ export function IdeaPost({ idea, onBack, isDesktop, onRemix, onOpenOriginal }) {
 
       {/* comments */}
       <div style={{ padding: "4px 16px 0" }}>
-        {comments.length === 0 && (
-          <div style={{ textAlign: "center", padding: "20px 0" }}>
-            <div
-              className="f-body"
-              style={{ fontSize: 13, color: "var(--ink-3)" }}
-            >
-              no responses yet. be the first.
-            </div>
-          </div>
-        )}
         {comments.map((c, idx) => (
           <CommentBlock
             key={c.id}
@@ -475,253 +489,6 @@ export function IdeaPost({ idea, onBack, isDesktop, onRemix, onOpenOriginal }) {
             onHideComment={hideComment}
           />
         ))}
-      </div>
-
-      {/* remixes of this idea */}
-      {remixes.length > 0 && (
-        <div style={{ padding: "18px 16px 0" }}>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 10,
-              marginBottom: 12,
-            }}
-          >
-            <div className="f-display" style={{ fontSize: 22 }}>
-              remixes
-            </div>
-            <div
-              style={{
-                flex: 1,
-                height: 0,
-                borderBottom: "2px dashed var(--ink-3)",
-              }}
-            />
-            <div
-              className="f-mono"
-              style={{
-                fontSize: 10,
-                color: "var(--ink-2)",
-                letterSpacing: "0.1em",
-              }}
-            >
-              {remixes.length}
-            </div>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-            {remixes.map((r, idx) => (
-              <button
-                key={r.id}
-                onClick={() => onOpenOriginal?.(r.id)}
-                className="tap"
-                style={{
-                  textAlign: "left",
-                  background: "var(--paper)",
-                  border: "2px solid var(--ink)",
-                  padding: "12px 14px",
-                  boxShadow: `3px 3px 0 ${r.accent}`,
-                  transform: `rotate(${idx % 2 === 0 ? -0.5 : 0.5}deg)`,
-                }}
-              >
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    gap: 8,
-                    marginBottom: 6,
-                  }}
-                >
-                  <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                    <Avatar
-                      name={r.author.initials}
-                      size={22}
-                      color={r.author.color}
-                      shape="soft"
-                    />
-                    <span
-                      className="f-mono"
-                      style={{
-                        fontSize: 10,
-                        fontWeight: 700,
-                        letterSpacing: "0.06em",
-                      }}
-                    >
-                      {r.author.name}
-                    </span>
-                  </div>
-                  <span
-                    className="f-mono"
-                    style={{ fontSize: 9, color: "var(--ink-3)" }}
-                  >
-                    {r.posted} ago
-                  </span>
-                </div>
-                <div
-                  className="f-display"
-                  style={{ fontSize: 18, lineHeight: 1.05, color: "var(--ink)" }}
-                >
-                  {r.title}
-                </div>
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* remix CTA */}
-      <div style={{ padding: "12px 16px 0" }}>
-        <div
-          style={{
-            border: "2.5px dashed var(--ink)",
-            padding: 16,
-            textAlign: "center",
-            background: "var(--paper-2)",
-            position: "relative",
-          }}
-        >
-          <div className="f-display" style={{ fontSize: 22 }}>
-            got a remix?
-          </div>
-          <div
-            className="f-body"
-            style={{ fontSize: 12, color: "var(--ink-2)", marginTop: 4 }}
-          >
-            post your own riff on this idea — it'll thread back here.
-          </div>
-          <button
-            onClick={() => onRemix(i)}
-            className="tap"
-            style={{
-              marginTop: 12,
-              padding: "8px 14px",
-              background: "var(--pink)",
-              color: "var(--paper)",
-              border: "2px solid var(--ink)",
-              boxShadow: "3px 3px 0 var(--ink)",
-              fontFamily: "'JetBrains Mono', monospace",
-              fontWeight: 700,
-              fontSize: 11,
-              letterSpacing: "0.1em",
-            }}
-          >
-            + REMIX THIS IDEA
-          </button>
-        </div>
-      </div>
-
-      {/* comment bar */}
-      <div
-        style={{
-          ...(isDesktop
-            ? {
-                padding: "10px 14px",
-                marginTop: 24,
-                background: "var(--paper)",
-                borderTop: "2px solid var(--ink)",
-              }
-            : {
-                position: "absolute",
-                left: 0,
-                right: 0,
-                bottom: 84,
-                padding: "10px 14px",
-                background: "var(--paper)",
-                borderTop: "2px solid var(--ink)",
-              }),
-        }}
-      >
-        {replyTo && (
-          <div
-            style={{
-              marginBottom: 8,
-              display: "flex",
-              alignItems: "center",
-              gap: 8,
-            }}
-          >
-            <div
-              className="f-mono"
-              style={{
-                fontSize: 10,
-                color: "var(--ink-2)",
-                letterSpacing: "0.08em",
-              }}
-            >
-              REPLYING TO {replyTo.author.toUpperCase()}
-            </div>
-            <button
-              onClick={() => setReplyTo(null)}
-              className="tap f-mono"
-              style={{ fontSize: 10, color: "var(--red)", fontWeight: 700 }}
-            >
-              CANCEL
-            </button>
-          </div>
-        )}
-        {session ? (
-          <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-            <Avatar
-              name={
-                profile ? profile.username?.slice(0, 2).toUpperCase() : "YO"
-              }
-              size={32}
-              color="var(--lime)"
-              shape="soft"
-            />
-            <input
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-              onKeyDown={(e) =>
-                e.key === "Enter" && !e.shiftKey && handlePost()
-              }
-              placeholder={
-                replyTo
-                  ? `reply to ${replyTo.author}…`
-                  : "write something kind & weird…"
-              }
-              style={{
-                flex: 1,
-                border: "2px solid var(--ink)",
-                padding: "8px 10px",
-                fontFamily: "'Space Grotesk', sans-serif",
-                fontSize: 13,
-                background: "var(--paper-2)",
-              }}
-            />
-            <button
-              onClick={handlePost}
-              disabled={posting || !comment.trim()}
-              className="tap"
-              style={{
-                background: "var(--ink)",
-                color: "var(--paper)",
-                border: "none",
-                padding: "8px 12px",
-                fontFamily: "'JetBrains Mono', monospace",
-                fontWeight: 700,
-                fontSize: 11,
-                letterSpacing: "0.08em",
-                opacity: posting ? 0.6 : 1,
-              }}
-            >
-              {replyTo ? "REPLY" : "POST"}
-            </button>
-          </div>
-        ) : (
-          <div
-            className="f-mono"
-            style={{
-              fontSize: 11,
-              color: "var(--ink-2)",
-              textAlign: "center",
-              letterSpacing: "0.08em",
-            }}
-          >
-            SIGN IN TO LEAVE A RESPONSE
-          </div>
-        )}
       </div>
 
       {shareOpen && <ShareSheet idea={i} onClose={() => setShareOpen(false)} />}
