@@ -98,10 +98,12 @@ export function Auth() {
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState('');
 
+  const siteUrl = process.env.REACT_APP_SITE_URL || window.location.origin;
+
   const sendMagicLink = async () => {
     if (!email.includes('@')) { setErr('that doesn\'t look like an email'); return; }
     setLoading(true);
-    const { error } = await supabase.auth.signInWithOtp({ email: email.trim(), options: { emailRedirectTo: window.location.origin } });
+    const { error } = await supabase.auth.signInWithOtp({ email: email.trim(), options: { emailRedirectTo: siteUrl } });
     if (error) { setErr(error.message); setLoading(false); return; }
     setSent(true);
     setLoading(false);
@@ -111,7 +113,7 @@ export function Auth() {
   const signInWithGoogle = async () => {
     await supabase.auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo: window.location.origin },
+      options: { redirectTo: siteUrl },
     });
   };
 

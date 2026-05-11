@@ -66,11 +66,10 @@ function BottomNav({ tab, setTab, openPost, newCount }) {
   ];
   return (
     <div style={{
-      position: 'absolute', left: 0, right: 0, bottom: 0,
       background: 'var(--paper)', borderTop: '2.5px solid var(--ink)',
-      padding: '8px 8px 22px',
+      padding: '8px 8px 20px',
       display: 'flex', alignItems: 'center', justifyContent: 'space-around',
-      zIndex: 30,
+      zIndex: 30, flexShrink: 0,
     }}>
       {tabs.map(t => {
         if (t.center) {
@@ -132,7 +131,7 @@ function BottomNav({ tab, setTab, openPost, newCount }) {
 function PostedSplash() {
   return (
     <div style={{
-      position: 'absolute', inset: 0, zIndex: 50,
+      position: 'fixed', inset: 0, zIndex: 50,
       background: 'var(--lime)',
       display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column',
     }} className="fade-in">
@@ -142,6 +141,45 @@ function PostedSplash() {
       <div className="f-mono" style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.2em', marginTop: 14, color: 'var(--ink)' }}>
         ✺ ✺ ✺ NOW ON THE BOARD ✺ ✺ ✺
       </div>
+    </div>
+  );
+}
+
+// ─── iOS install banner ───────────────────────────────────────
+
+function useIOSInstallBanner() {
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  const isStandalone = window.navigator.standalone === true;
+  const [dismissed, setDismissed] = useState(
+    () => localStorage.getItem('ios_install_dismissed') === '1'
+  );
+  return {
+    show: isIOS && !isStandalone && !dismissed,
+    dismiss: () => { localStorage.setItem('ios_install_dismissed', '1'); setDismissed(true); },
+  };
+}
+
+function IOSInstallBanner({ onDismiss }) {
+  return (
+    <div style={{
+      background: 'var(--mustard)', borderTop: '2px solid var(--ink)',
+      padding: '10px 16px',
+      display: 'flex', alignItems: 'center', gap: 12, flexShrink: 0,
+    }} className="fade-in">
+      <div style={{ fontSize: 18, flexShrink: 0 }}>📌</div>
+      <div style={{ flex: 1 }}>
+        <div className="f-mono" style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.14em', color: 'var(--ink)', marginBottom: 2 }}>
+          ADD TO HOME SCREEN
+        </div>
+        <div className="f-body" style={{ fontSize: 12, color: 'var(--ink-2)', lineHeight: 1.4 }}>
+          Tap <strong>Share ⎙</strong> then <strong>"Add to Home Screen"</strong>
+        </div>
+      </div>
+      <button onClick={onDismiss} className="tap" style={{
+        background: 'none', border: 'none',
+        fontFamily: "'JetBrains Mono', monospace",
+        fontSize: 14, color: 'var(--ink)', cursor: 'pointer', flexShrink: 0, padding: 4,
+      }}>✕</button>
     </div>
   );
 }
@@ -158,7 +196,7 @@ const PALETTE_META = {
 function PaletteSwitcher({ palette, setPalette }) {
   const [open, setOpen] = useState(false);
   return (
-    <div style={{ position: 'fixed', bottom: 100, right: 16, zIndex: 100 }}>
+    <div style={{ position: 'fixed', bottom: 90, right: 16, zIndex: 100 }}>
       {open && (
         <div className="fade-in" style={{
           position: 'absolute', bottom: 44, right: 0,
@@ -210,6 +248,7 @@ function AppInner() {
   const [posted, setPosted]     = useState(false);
   const vpw = useViewportWidth();
   const isDesktop = vpw >= 1100;
+  const { show: showIOSBanner, dismiss: dismissIOSBanner } = useIOSInstallBanner();
 
   useEffect(() => { applyPalette(palette); }, [palette]);
 
@@ -273,87 +312,42 @@ function AppInner() {
 
   return (
     <div style={{
-      minHeight: '100vh',
-      display: 'flex', alignItems: 'center', justifyContent: 'center',
-      background: '#131110', padding: '24px 0',
-    }}>
-      {/* bg decorations */}
-      <div style={{ position: 'fixed', top: -30, left: -30, width: 220, height: 220, color: 'rgba(245,197,24,0.18)', zIndex: 0, pointerEvents: 'none', transform: 'rotate(15deg)' }} className="halftone-lg" />
-      <div style={{ position: 'fixed', bottom: -50, right: -40, width: 280, height: 280, color: 'rgba(255,61,127,0.15)', zIndex: 0, pointerEvents: 'none' }} className="halftone-lg" />
-      <div style={{ position: 'fixed', top: '40%', left: 8, fontFamily: "'JetBrains Mono', monospace", fontSize: 10, color: '#3a3530', writingMode: 'vertical-rl', letterSpacing: '0.3em', zIndex: 0, pointerEvents: 'none' }}>
-        BAD IDEAS WELCOME · BAD IDEAS WELCOME · BAD IDEAS WELCOME
-      </div>
+      position: 'fixed', inset: 0,
+      background: 'var(--paper)',
+      display: 'flex', flexDirection: 'column',
+      overflow: 'hidden',
+    }} className="paper-bg">
+      {/* auth gate */}
+      {needsAuth && <Auth />}
 
-      <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        {/* iOS-style phone shell */}
+      {/* scrollable screen */}
+      {!needsAuth && (
         <div style={{
-          width: 390, height: 844,
-          position: 'relative', overflow: 'hidden',
+          flex: 1, overflowY: 'auto', overflowX: 'hidden',
           background: 'var(--paper)',
-          borderRadius: 48,
-          boxShadow: '0 40px 100px rgba(0,0,0,0.6), 0 0 0 10px #0f0f0f, 0 0 0 12px #2a2a2a',
-        }}>
-          {/* status bar */}
-          <div style={{
-            position: 'absolute', top: 0, left: 0, right: 0, height: 50,
-            background: 'var(--paper)', zIndex: 20,
-            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-            padding: '0 28px',
-          }}>
-            <div className="f-mono" style={{ fontSize: 12, fontWeight: 700, color: 'var(--ink)' }}>9:41</div>
-            <div style={{ width: 110, height: 28, background: '#0f0f0f', borderRadius: 20, position: 'absolute', left: '50%', top: 8, transform: 'translateX(-50%)' }} />
-            <div style={{ display: 'flex', gap: 5, alignItems: 'center' }}>
-              <div className="f-mono" style={{ fontSize: 11, color: 'var(--ink)' }}>●●●</div>
-            </div>
-          </div>
-
-          {/* auth gate */}
-          {needsAuth && <Auth />}
-
-          {/* scrollable screen */}
-          {!needsAuth && (
-            <div style={{
-              position: 'absolute', inset: 0,
-              paddingTop: 50, paddingBottom: 88,
-              overflow: 'auto', background: 'var(--paper)',
-            }} className="no-scrollbar">
-              {screen}
-            </div>
-          )}
-
-          {/* bottom nav */}
-          {!needsAuth && !openIdea && (
-            <BottomNav tab={tab} setTab={setTab} openPost={() => setPosting(true)} newCount={newCount} />
-          )}
-
-          {/* post flow */}
-          {!needsAuth && posting && (
-            <div style={{ position: 'absolute', inset: 0, zIndex: 40, background: 'var(--paper)' }}>
-              <div style={{ height: 50 }} />
-              <div style={{ height: 'calc(100% - 50px)', overflow: 'hidden' }}>
-                <PostFlow onClose={() => setPosting(false)} onPosted={handlePosted} />
-              </div>
-            </div>
-          )}
-
-          {/* pinned splash */}
-          {posted && <PostedSplash />}
-
-          {/* home indicator */}
-          <div style={{
-            position: 'absolute', bottom: 8, left: '50%', transform: 'translateX(-50%)',
-            width: 130, height: 5, background: 'var(--ink)', borderRadius: 3, opacity: 0.2,
-          }} />
+        }} className="no-scrollbar">
+          {screen}
         </div>
+      )}
 
-        {/* caption */}
-        <div style={{ marginTop: 20, textAlign: 'center' }}>
-          <div className="f-display" style={{ fontSize: 20, color: '#d9ceb2' }}>IDIAS — bulletin for half-baked ideas</div>
-          <div className="f-mono" style={{ fontSize: 10, marginTop: 4, letterSpacing: '0.14em', color: '#7a7568' }}>
-            TAP THE PINK + TO POST · TAP A CARD TO OPEN · BOTTOM NAV TO SWITCH
-          </div>
+      {/* iOS install hint */}
+      {!needsAuth && showIOSBanner && !openIdea && (
+        <IOSInstallBanner onDismiss={dismissIOSBanner} />
+      )}
+
+      {/* bottom nav */}
+      {!needsAuth && !openIdea && (
+        <BottomNav tab={tab} setTab={setTab} openPost={() => setPosting(true)} newCount={newCount} />
+      )}
+
+      {/* post flow */}
+      {!needsAuth && posting && (
+        <div style={{ position: 'fixed', inset: 0, zIndex: 40, background: 'var(--paper)' }}>
+          <PostFlow onClose={() => setPosting(false)} onPosted={handlePosted} />
         </div>
-      </div>
+      )}
+
+      {posted && <PostedSplash />}
 
       <PaletteSwitcher palette={palette} setPalette={setPalette} />
     </div>
