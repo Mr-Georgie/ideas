@@ -134,8 +134,20 @@ export function Auth() {
       <div style={{ width: '100%', maxWidth: 320 }}>
         {/* logo */}
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
-          <div className="f-display" style={{ fontSize: 52, lineHeight: 0.9, transform: 'rotate(-2deg)', display: 'inline-block' }}>
-            ID<span style={{ color: 'var(--pink)' }}>I</span>AS
+          <div style={{ position: 'relative', display: 'inline-block' }}>
+            <div className="f-display" style={{ fontSize: 52, lineHeight: 0.9, transform: 'rotate(-2deg)', display: 'inline-block' }}>
+              ID<span style={{ color: 'var(--pink)' }}>I</span>AS
+            </div>
+            <span className="f-mono" style={{
+              position: 'absolute', top: -8, right: -30,
+              fontSize: 8, fontWeight: 700, letterSpacing: '0.12em',
+              padding: '2px 5px',
+              background: 'var(--orange)', color: 'var(--paper)',
+              border: '1.5px solid var(--ink)',
+              transform: 'rotate(6deg)',
+              display: 'inline-block',
+              boxShadow: '1.5px 1.5px 0 var(--ink)',
+            }}>BETA</span>
           </div>
           <div className="f-mono" style={{ fontSize: 10, color: 'var(--ink-3)', letterSpacing: '0.18em', marginTop: 6 }}>
             BULLETIN FOR HALF-BAKED IDEAS

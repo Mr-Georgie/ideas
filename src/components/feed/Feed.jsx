@@ -40,9 +40,19 @@ function FeedHeader({ filter, setFilter }) {
           <div className="f-mono" style={{ fontSize: 9, letterSpacing: '0.18em', color: 'var(--ink-3)', textTransform: 'uppercase' }}>
             BULLETIN · {today}
           </div>
-          <h1 className="f-display" style={{ fontSize: 38, margin: '2px 0 0', letterSpacing: '-0.02em' }}>
-            ID<span style={{ color: 'var(--pink)' }}>I</span>AS
-            <span className="f-mono" style={{ fontSize: 10, color: 'var(--ink-3)', marginLeft: 6, letterSpacing: '0.08em' }}>/dee-ass/</span>
+          <h1 className="f-display" style={{ fontSize: 38, margin: '2px 0 0', letterSpacing: '-0.02em', display: 'flex', alignItems: 'center', gap: 8 }}>
+            <span>ID<span style={{ color: 'var(--pink)' }}>I</span>AS</span>
+            <span className="f-mono" style={{ fontSize: 10, color: 'var(--ink-3)', letterSpacing: '0.08em' }}>/dee-ass/</span>
+            <span className="f-mono" style={{
+              fontSize: 8, fontWeight: 700, letterSpacing: '0.12em',
+              padding: '2px 5px',
+              background: 'var(--orange)', color: 'var(--paper)',
+              border: '1.5px solid var(--ink)',
+              transform: 'rotate(-3deg)',
+              display: 'inline-block',
+              boxShadow: '1.5px 1.5px 0 var(--ink)',
+              marginBottom: 4,
+            }}>BETA</span>
           </h1>
         </div>
         <div style={{ textAlign: 'right' }}>

@@ -48,8 +48,18 @@ function DesktopTopBar({ tab, setTab, openPost, newCount }) {
     }}>
       <div style={{ position: 'relative' }}>
         <Tape left={-4} top={-12} color="rgba(255,61,127,0.55)" tilt={-9} w={46} h={14} />
-        <div className="f-display" style={{ fontSize: 32, lineHeight: 0.9 }}>
-          ID<span style={{ color: 'var(--pink)' }}>I</span>AS
+        <div className="f-display" style={{ fontSize: 32, lineHeight: 0.9, display: 'flex', alignItems: 'flex-start', gap: 6 }}>
+          <span>ID<span style={{ color: 'var(--pink)' }}>I</span>AS</span>
+          <span className="f-mono" style={{
+            fontSize: 8, fontWeight: 700, letterSpacing: '0.12em',
+            padding: '2px 5px',
+            background: 'var(--orange)', color: 'var(--paper)',
+            border: '1.5px solid var(--ink)',
+            transform: 'rotate(4deg)',
+            display: 'inline-block',
+            boxShadow: '1.5px 1.5px 0 var(--ink)',
+            marginTop: 2,
+          }}>BETA</span>
         </div>
       </div>
       <div className="f-mono" style={{
