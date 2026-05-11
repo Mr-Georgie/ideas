@@ -11,4 +11,8 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
-serviceWorkerRegistration.register();
+serviceWorkerRegistration.register({
+  onUpdate: (registration) => {
+    window.dispatchEvent(new CustomEvent('swUpdate', { detail: registration }));
+  },
+});

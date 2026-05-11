@@ -208,10 +208,24 @@ function AppInner() {
   const [openIdea, setOpenIdea] = useState(null);
   const [posting, setPosting]   = useState(false);
   const [posted, setPosted]     = useState(false);
+  const [swReg, setSwReg]       = useState(null);
   const vpw = useViewportWidth();
   const isDesktop = vpw >= 1100;
 
   useEffect(() => { applyPalette(palette); }, [palette]);
+
+  useEffect(() => {
+    const handler = (e) => setSwReg(e.detail);
+    window.addEventListener('swUpdate', handler);
+    return () => window.removeEventListener('swUpdate', handler);
+  }, []);
+
+  const applyUpdate = () => {
+    if (swReg && swReg.waiting) {
+      swReg.waiting.postMessage({ type: 'SKIP_WAITING' });
+    }
+    window.location.reload();
+  };
 
   // Request push permission after first click, once logged in
   useEffect(() => {
@@ -292,6 +306,30 @@ function AppInner() {
       )}
 
 
+
+      {/* update banner */}
+      {swReg && (
+        <div style={{
+          background: 'var(--ink)', color: 'var(--paper)',
+          padding: '10px 16px', flexShrink: 0,
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12,
+        }} className="fade-in">
+          <div className="f-body" style={{ fontSize: 13 }}>
+            New version available
+          </div>
+          <button
+            onClick={applyUpdate}
+            className="tap"
+            style={{
+              background: 'var(--pink)', color: 'var(--paper)',
+              border: '2px solid var(--paper)',
+              padding: '6px 14px',
+              fontFamily: "'JetBrains Mono', monospace", fontWeight: 700, fontSize: 10, letterSpacing: '0.1em',
+              whiteSpace: 'nowrap',
+            }}
+          >RELOAD →</button>
+        </div>
+      )}
 
       {/* bottom nav */}
       {!needsAuth && !openIdea && (
