@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useIdeas } from '../../hooks/useIdeas';
+import { useWeirdIndex } from '../../hooks/useWeirdIndex';
 import { Icon } from '../shared/Icon';
 import { Tape } from '../shared/Tape';
 import { CardManifesto } from '../feed/cards/CardManifesto';
@@ -141,19 +142,37 @@ function SkeletonCard() {
 function DesktopFeed({ onOpenIdea }) {
   const [filter, setFilter] = useState('ALL');
   const { ideas, loading, error } = useIdeas(filter);
+  const { index, reactionCount, label } = useWeirdIndex();
   const today = new Date().toLocaleString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }).toUpperCase();
 
   return (
     <div style={{ padding: '40px 32px 80px' }} className="paper-bg">
       <div style={{ maxWidth: 680, margin: '0 auto' }}>
         {/* page header */}
-        <div style={{ marginBottom: 28 }}>
-          <div className="f-mono" style={{ fontSize: 11, color: 'var(--ink-3)', letterSpacing: '0.18em' }}>
-            {today}
+        <div style={{ marginBottom: 28, display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 24 }}>
+          <div>
+            <div className="f-mono" style={{ fontSize: 11, color: 'var(--ink-3)', letterSpacing: '0.18em' }}>
+              {today}
+            </div>
+            <div className="f-display" style={{ fontSize: 72, lineHeight: 0.92, marginTop: 6 }}>
+              the{' '}
+              <span style={{ background: 'var(--mustard)', padding: '0 8px' }}>bulletin</span>
+            </div>
           </div>
-          <div className="f-display" style={{ fontSize: 72, lineHeight: 0.92, marginTop: 6 }}>
-            the{' '}
-            <span style={{ background: 'var(--mustard)', padding: '0 8px' }}>bulletin</span>
+          <div style={{ textAlign: 'right', paddingBottom: 6, flexShrink: 0 }}>
+            <div className="f-mono" style={{ fontSize: 10, color: 'var(--ink-3)', letterSpacing: '0.14em' }}>WEIRD INDEX</div>
+            <div className="f-display" style={{ fontSize: 48, lineHeight: 1, color: 'var(--pink)' }}>
+              {index === null ? '–' : index}
+              <span className="f-mono" style={{ fontSize: 16, color: 'var(--ink-3)' }}>/100</span>
+            </div>
+            {label && (
+              <div className="f-mono" style={{ fontSize: 9, color: 'var(--ink-3)', letterSpacing: '0.12em', marginTop: 2 }}>
+                {label}
+              </div>
+            )}
+            <div className="f-mono" style={{ fontSize: 8, color: 'var(--ink-3)', marginTop: 2, opacity: 0.6 }}>
+              {reactionCount} STAMPS · LAST 24H
+            </div>
           </div>
         </div>
 

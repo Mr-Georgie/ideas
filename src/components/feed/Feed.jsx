@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { PostIt } from '../shared/PostIt';
 import { useIdeas } from '../../hooks/useIdeas';
+import { useWeirdIndex } from '../../hooks/useWeirdIndex';
 import { CardManifesto } from './cards/CardManifesto';
 import { CardSticky } from './cards/CardSticky';
 import { CardPolaroid } from './cards/CardPolaroid';
@@ -27,6 +28,7 @@ const FILTERS = [
 
 function FeedHeader({ filter, setFilter }) {
   const today = new Date().toLocaleString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }).toUpperCase();
+  const { index, label } = useWeirdIndex();
   return (
     <div style={{
       padding: '14px 20px 10px',
@@ -57,9 +59,15 @@ function FeedHeader({ filter, setFilter }) {
         </div>
         <div style={{ textAlign: 'right' }}>
           <div className="f-mono" style={{ fontSize: 10, color: 'var(--ink-3)' }}>WEIRD INDEX</div>
-          <div className="f-display" style={{ fontSize: 28, color: 'var(--pink)' }}>
-            87<span className="f-mono" style={{ fontSize: 12, color: 'var(--ink-3)' }}>/100</span>
+          <div className="f-display" style={{ fontSize: 28, color: 'var(--pink)', lineHeight: 1 }}>
+            {index === null ? '–' : index}
+            <span className="f-mono" style={{ fontSize: 12, color: 'var(--ink-3)' }}>/100</span>
           </div>
+          {label && (
+            <div className="f-mono" style={{ fontSize: 8, color: 'var(--ink-3)', letterSpacing: '0.1em', marginTop: 2 }}>
+              {label}
+            </div>
+          )}
         </div>
       </div>
       <div style={{ display: 'flex', gap: 8, marginTop: 10, overflowX: 'auto' }} className="no-scrollbar">
