@@ -190,12 +190,9 @@ function CommentBlock({ c, i, onReply, isAdmin, onHideComment }) {
 export function IdeaPost({ idea, onBack, isDesktop, onRemix, onOpenOriginal }) {
   const { session } = useAuth();
   const { counts, myReaction, toggle } = useReactions(idea?.id);
-  const { comments, post, refetch: refetchComments } = useComments(idea?.id);
+  const { comments, refetch: refetchComments } = useComments(idea?.id);
   const isAdmin = !!ADMIN_ID && session?.user?.id === ADMIN_ID;
   const [shareOpen, setShareOpen] = useState(false);
-  const [comment, setComment] = useState("");
-  const [posting, setPosting] = useState(false);
-  const [replyTo, setReplyTo] = useState(null);
   const [hiding, setHiding] = useState(false);
   const i = idea;
 
@@ -223,15 +220,6 @@ export function IdeaPost({ idea, onBack, isDesktop, onRemix, onOpenOriginal }) {
   };
 
   if (!i) return null;
-
-  const handlePost = async () => {
-    if (!comment.trim()) return;
-    setPosting(true);
-    await post(comment, null, replyTo?.id);
-    setComment("");
-    setReplyTo(null);
-    setPosting(false);
-  };
 
   return (
     <div
@@ -320,7 +308,6 @@ export function IdeaPost({ idea, onBack, isDesktop, onRemix, onOpenOriginal }) {
       <div style={{ padding: "18px 18px 0" }}>
         <div style={{ position: "relative" }}>
           <Tape left={28} top={-6} color="rgba(255,61,127,0.55)" tilt={-7} />
-          {/* FIXED TYPO HERE: tilt={6} instead of tilt(6) */}
           <Tape right={36} top={-6} color="rgba(61,91,255,0.45)" tilt={6} />
           <div
             style={{
@@ -390,10 +377,6 @@ export function IdeaPost({ idea, onBack, isDesktop, onRemix, onOpenOriginal }) {
 
             {/* --- VOICE RAMBLE PLAYER --- */}
             {i.audio_url && <RamblePlayer url={i.audio_url} accent={i.accent} />}
-            {/* <RamblePlayer 
-  url="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" 
-  accent={i.accent} 
-/> */}
 
             <div
               style={{
@@ -481,7 +464,7 @@ export function IdeaPost({ idea, onBack, isDesktop, onRemix, onOpenOriginal }) {
             key={c.id}
             c={c}
             i={idx}
-            onReply={setReplyTo}
+            onReply={() => {}} 
             isAdmin={isAdmin}
             onHideComment={hideComment}
           />
