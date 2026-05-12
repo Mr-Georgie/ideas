@@ -3,12 +3,10 @@ import { Avatar } from "./shared/Avatar";
 import { Stamp } from "./shared/Stamp";
 import { Tag } from "./shared/Tag";
 import { Tape } from "./shared/Tape";
-import { PostIt } from "./shared/PostIt";
 import { Icon } from "./shared/Icon";
 import { ShareSheet } from "./ShareSheet";
 import { useReactions } from "../hooks/useReactions";
 import { useComments } from "../hooks/useComments";
-import { useRemixes } from "../hooks/useRemixes";
 import { useAuth } from "../context/AuthContext";
 import { supabase, REACTION_DEFS } from "../lib/supabase";
 
@@ -193,7 +191,6 @@ export function IdeaPost({ idea, onBack, isDesktop, onRemix, onOpenOriginal }) {
   const { session } = useAuth();
   const { counts, myReaction, toggle } = useReactions(idea?.id);
   const { comments, post, refetch: refetchComments } = useComments(idea?.id);
-  const remixes = useRemixes(idea?.id);
   const isAdmin = !!ADMIN_ID && session?.user?.id === ADMIN_ID;
   const [shareOpen, setShareOpen] = useState(false);
   const [comment, setComment] = useState("");
@@ -392,11 +389,11 @@ export function IdeaPost({ idea, onBack, isDesktop, onRemix, onOpenOriginal }) {
             </div>
 
             {/* --- VOICE RAMBLE PLAYER --- */}
-            {/* {i.audio_url && <RamblePlayer url={i.audio_url} accent={i.accent} />} */}
-            <RamblePlayer 
+            {i.audio_url && <RamblePlayer url={i.audio_url} accent={i.accent} />}
+            {/* <RamblePlayer 
   url="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" 
   accent={i.accent} 
-/>
+/> */}
 
             <div
               style={{

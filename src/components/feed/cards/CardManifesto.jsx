@@ -96,8 +96,8 @@ export function CardManifesto({ idea, onOpen }) {
         <span style={{ lineHeight: 1 }}>{idea.title}</span>
         
         {/* --- ADDED MINI PLAYER --- */}
-        {/* {idea.audio_url && <MiniRamble url={idea.audio_url} />} */}
-        <MiniRamble url="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" />
+        {idea.audio_url && <MiniRamble url={idea.audio_url} />}
+        {/* <MiniRamble url="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" /> */}
       </div>
 
       {idea.original && (

@@ -86,6 +86,9 @@ export function transformIdea(row, index = 0) {
     replies: row.reply_count || 0,
     status: row.status,
     hidden: row.hidden || false,
+    
+    audio_url: row.audio_url,
+    
     original: remixSource
       ? {
           id: remixSource.id,
