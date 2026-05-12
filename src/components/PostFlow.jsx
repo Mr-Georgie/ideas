@@ -4,7 +4,7 @@ import { Tape } from "./shared/Tape";
 import { PostIt } from "./shared/PostIt";
 import { Avatar } from "./shared/Avatar";
 import { Icon } from "./shared/Icon";
-import { supabase, VARIANTS, ACCENT_MAP } from "../lib/supabase";
+import { supabase, ACCENT_MAP } from "../lib/supabase";
 import { useAuth } from "../context/AuthContext";
 
 const STEPS = ["CRACK_OPEN", "TITLE", "GUTS", "RAMBLE", "TAG_IT", "PREVIEW"];
