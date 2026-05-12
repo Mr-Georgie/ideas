@@ -11,6 +11,7 @@ import { subscribeToPush } from "./utils/pushNotifications";
 import { useNotifications } from "./hooks/useNotifications";
 import { DesktopShell } from "./components/desktop/DesktopShell";
 import { supabase, transformIdea } from "./lib/supabase";
+import NDAWall from "./components/NDAWall"; // <-- 1. IMPORTED THE NDA WALL
 
 function useViewportWidth() {
   const [w, setW] = useState(window.innerWidth);
@@ -466,6 +467,9 @@ function AppInner() {
     }
     return (
       <>
+        {/* 2. THE NDA WALL GOES HERE FOR DESKTOP */}
+        <NDAWall /> 
+
         <DesktopShell
           tab={tab}
           setTab={setTab}
@@ -575,6 +579,9 @@ function AppInner() {
     >
       {/* auth gate */}
       {needsAuth && <Auth />}
+
+      {/* 3. THE NDA WALL GOES HERE FOR MOBILE */}
+      {!needsAuth && <NDAWall />}
 
       {/* scrollable screen */}
       {!needsAuth && (

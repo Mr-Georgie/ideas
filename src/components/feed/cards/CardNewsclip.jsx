@@ -1,5 +1,55 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { ReactionRow } from "./ReactionRow";
+
+// --- Mini Player Component ---
+function MiniRamble({ url }) {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef(new Audio(url));
+
+  const toggle = (e) => {
+    e.stopPropagation();
+    if (isPlaying) {
+      audioRef.current.pause();
+    } else {
+      audioRef.current.play();
+    }
+    setIsPlaying(!isPlaying);
+  };
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    const handleEnd = () => setIsPlaying(false);
+    audio.addEventListener("ended", handleEnd);
+    return () => {
+      audio.removeEventListener("ended", handleEnd);
+      audio.pause();
+    };
+  }, []);
+
+  return (
+    <button
+      onClick={toggle}
+      className="tap"
+      style={{
+        padding: "4px 12px",
+        borderRadius: "0",
+        border: "2px solid var(--ink)",
+        background: isPlaying ? "var(--lime)" : "var(--pink)",
+        display: "flex",
+        alignItems: "center",
+        gap: 8,
+        boxShadow: "2px 2px 0 var(--ink)",
+        margin: "10px auto 0",
+        fontFamily: "'JetBrains Mono', monospace",
+        fontSize: 9,
+        fontWeight: 800,
+        textTransform: "uppercase"
+      }}
+    >
+      {isPlaying ? "■ STOP" : "▶ PLAY RAMBLE"}
+    </button>
+  );
+}
 
 export function CardNewsclip({ idea, onOpen }) {
   return (
@@ -40,6 +90,10 @@ export function CardNewsclip({ idea, onOpen }) {
       >
         {idea.title}
       </div>
+
+      {/* --- ADDED MINI PLAYER --- */}
+      {idea.audio_url && <MiniRamble url={idea.audio_url} />}
+
       {idea.original && (
         <div
           className="f-mono"

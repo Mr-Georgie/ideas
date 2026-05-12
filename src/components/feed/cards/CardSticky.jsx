@@ -1,7 +1,65 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Avatar } from "../../shared/Avatar";
 import { Tag } from "../../shared/Tag";
 import { ReactionRow } from "./ReactionRow";
+
+// --- Mini Player Component ---
+function MiniRamble({ url }) {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef(new Audio(url));
+
+  const toggle = (e) => {
+    e.stopPropagation(); // Prevents opening the post
+    if (isPlaying) {
+      audioRef.current.pause();
+    } else {
+      audioRef.current.play();
+    }
+    setIsPlaying(!isPlaying);
+  };
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    const handleEnd = () => setIsPlaying(false);
+    audio.addEventListener("ended", handleEnd);
+    return () => {
+      audio.removeEventListener("ended", handleEnd);
+      audio.pause();
+    };
+  }, []);
+
+  return (
+    <button
+      onClick={toggle}
+      className="tap"
+      style={{
+        width: 30,
+        height: 30,
+        borderRadius: "50%",
+        border: "2px solid var(--ink)",
+        background: isPlaying ? "var(--lime)" : "var(--pink)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        boxShadow: "2px 2px 0 rgba(0,0,0,0.2)",
+        marginLeft: 10,
+        flexShrink: 0,
+      }}
+    >
+      {isPlaying ? (
+        <div style={{ width: 8, height: 8, background: "var(--ink)" }} />
+      ) : (
+        <div style={{ 
+          width: 0, height: 0, 
+          borderTop: "5px solid transparent",
+          borderBottom: "5px solid transparent",
+          borderLeft: "8px solid var(--ink)",
+          marginLeft: 2
+        }} />
+      )}
+    </button>
+  );
+}
 
 export function CardSticky({ idea, onOpen }) {
   return (
@@ -36,12 +94,25 @@ export function CardSticky({ idea, onOpen }) {
           {idea.posted} ago
         </div>
       </div>
+      
+      {/* Title + Ramble Player */}
       <div
-        className="f-display"
-        style={{ fontSize: 28, marginTop: 12, lineHeight: 0.96 }}
+        style={{ 
+          display: 'flex', 
+          alignItems: 'flex-start', 
+          justifyContent: 'space-between',
+          marginTop: 12 
+        }}
       >
-        {idea.title}
+        <div
+          className="f-display"
+          style={{ fontSize: 28, lineHeight: 0.96 }}
+        >
+          {idea.title}
+        </div>
+        {idea.audio_url && <MiniRamble url={idea.audio_url} />}
       </div>
+
       {idea.original && (
         <div
           className="f-mono"

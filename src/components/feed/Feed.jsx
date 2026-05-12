@@ -29,6 +29,7 @@ function FeedHeader({ filter, setFilter }) {
       day: "numeric",
     })
     .toUpperCase();
+
   return (
     <div
       style={{
@@ -124,22 +125,8 @@ function SkeletonCard() {
           opacity: 0.5,
         }}
       >
-        <div
-          style={{
-            height: 10,
-            background: "var(--ink-3)",
-            width: "40%",
-            marginBottom: 12,
-          }}
-        />
-        <div
-          style={{
-            height: 24,
-            background: "var(--ink-3)",
-            width: "80%",
-            marginBottom: 8,
-          }}
-        />
+        <div style={{ height: 10, background: "var(--ink-3)", width: "40%", marginBottom: 12 }} />
+        <div style={{ height: 24, background: "var(--ink-3)", width: "80%", marginBottom: 8 }} />
         <div style={{ height: 10, background: "var(--ink-3)", width: "60%" }} />
       </div>
     </div>
@@ -148,7 +135,7 @@ function SkeletonCard() {
 
 function FeedCard({ idea, onOpen, index }) {
   const Comp = VARIANT_MAP[idea.variant] || CardManifesto;
-  const delay = Math.min(index * 0.1, 1); // Stagger up to 1s
+  const delay = Math.min(index * 0.1, 1);
   return (
     <div
       className="fade-in"
@@ -166,39 +153,20 @@ export function Feed({ onOpenIdea }) {
   return (
     <div className="paper-bg" style={{ minHeight: "100%" }}>
       <FeedHeader filter={filter} setFilter={setFilter} />
+      
       {loading && [1, 2, 3].map((k) => <SkeletonCard key={k} />)}
 
       {error && (
         <div style={{ padding: "40px 20px", textAlign: "center" }}>
-          <div
-            className="f-display"
-            style={{ fontSize: 20, color: "var(--red)" }}
-          >
-            couldn't load ideas.
-          </div>
-          <div
-            className="f-mono"
-            style={{ fontSize: 10, color: "var(--ink-3)", marginTop: 6 }}
-          >
-            {error}
-          </div>
+          <div className="f-display" style={{ fontSize: 20, color: "var(--red)" }}>couldn't load ideas.</div>
+          <div className="f-mono" style={{ fontSize: 10, color: "var(--ink-3)", marginTop: 6 }}>{error}</div>
         </div>
       )}
 
       {!loading && !error && ideas.length === 0 && (
         <div style={{ padding: "40px 20px", textAlign: "center" }}>
-          <div
-            className="f-display"
-            style={{ fontSize: 20, color: "var(--ink-2)" }}
-          >
-            nothing here yet.
-          </div>
-          <div
-            className="f-mono"
-            style={{ fontSize: 10, color: "var(--ink-3)", marginTop: 6 }}
-          >
-            BE THE FIRST →
-          </div>
+          <div className="f-display" style={{ fontSize: 20, color: "var(--ink-2)" }}>nothing here yet.</div>
+          <div className="f-mono" style={{ fontSize: 10, color: "var(--ink-3)", marginTop: 6 }}>BE THE FIRST →</div>
         </div>
       )}
 
@@ -214,37 +182,8 @@ export function Feed({ onOpenIdea }) {
 
       {!loading && ideas.length > 0 && (
         <div style={{ padding: "10px 0 100px", textAlign: "center" }}>
-          <div
-            className="f-mono"
-            style={{
-              fontSize: 10,
-              color: "var(--ink-3)",
-              letterSpacing: "0.2em",
-            }}
-          >
-            ━ END OF TODAY'S BULLETIN ━
-          </div>
-          <div
-            className="f-display"
-            style={{ fontSize: 18, color: "var(--ink-2)", marginTop: 8 }}
-          >
-            come back tomorrow.
-          </div>
-          <div
-            className="f-mono"
-            style={{
-              fontSize: 9,
-              color: "var(--ink-3)",
-              marginTop: 20,
-              lineHeight: 1.6,
-              maxWidth: 280,
-              margin: "20px auto 0",
-              opacity: 0.7,
-            }}
-          >
-            IDIAS contains user-generated content. posts represent the views of
-            their authors, not the platform. content may be removed at any time.
-          </div>
+          <div className="f-mono" style={{ fontSize: 10, color: "var(--ink-3)", letterSpacing: "0.2em" }}>━ END OF TODAY'S BULLETIN ━</div>
+          <div className="f-display" style={{ fontSize: 18, color: "var(--ink-2)", marginTop: 8 }}>come back tomorrow.</div>
         </div>
       )}
     </div>
